@@ -1,3 +1,5 @@
+#ifndef FACULTY_H //header guard
+#define FACULTY_H //header guard
 
 using namespace std;
 
@@ -17,3 +19,4 @@ private:
 
   //overloaded operators??
 };
+#endif

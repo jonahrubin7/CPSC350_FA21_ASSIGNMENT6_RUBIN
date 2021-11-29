@@ -1,3 +1,5 @@
+#ifndef STUDENT_H //header guard
+#define STUDENT_H //header guard
 
 using namespace std;
 
@@ -21,3 +23,5 @@ private:
 
   //compare (greater than or less than) ???
 };
+
+#endif

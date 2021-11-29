@@ -19,5 +19,5 @@ Faculty::Faculty(int id, string name, string level, string department){
 }
 
 Faculty::~Faculty(){
-  
+
 }
