@@ -7,14 +7,14 @@ Student::Student(){
   string m_name = "";
   string m_field = "";
   string m_major = "";
-  double m_GPA = 0;
+   double m_GPA = 0;
   int m_advisor = 0;
 }
 
-Student::Student(int id, string name, string field, string major, double gpa, int advisor){
+Student::Student(int id, string name, string level, string major, double gpa, int advisor){
   int m_ID = id;
   string m_name = name;
-  string m_field = field;
+  string m_level = level;
   string m_major = major;
   double m_GPA = gpa;
   int m_advisor = advisor;

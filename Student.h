@@ -4,7 +4,7 @@ using namespace std;
 class Student{
 public:
   Student();
-  Student(int id, string name, string field, string major, double gpa, int advisor);
+  Student(int id, string name, string level, string major, double gpa, int advisor);
   ~Student();
   //getters and setters
   void setAdvisor();
@@ -14,7 +14,7 @@ public:
 private:
   int m_ID;
   string m_name;
-  string m_field;
+  string m_level;
   string m_major;
   double m_GPA;
   int m_advisor;
