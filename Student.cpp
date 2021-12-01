@@ -3,21 +3,16 @@
 using namespace std;
 
 Student::Student(){
-  int m_ID = 0;
-  string m_name = "";
-  string m_field = "";
-  string m_major = "";
-   double m_GPA = 0;
-  int m_advisor = 0;
+  m_major = "";
+  m_GPA = 0;
+  m_advisor = 0;
 }
 
-Student::Student(int id, string name, string level, string major, double gpa, int advisor){
-  int m_ID = id;
-  string m_name = name;
-  string m_level = level;
-  string m_major = major;
-  double m_GPA = gpa;
-  int m_advisor = advisor;
+Student::Student(string major, double gpa, int advisor){
+  //think i need to add the other things back
+  m_major = major;
+  m_GPA = gpa;
+  m_advisor = advisor;
 }
 
 Student::~Student(){
@@ -25,7 +20,7 @@ Student::~Student(){
 }
 
 void Student::setAdvisor(int advisor){
-  int m_advisor = advisor;
+  m_advisor = advisor;
 }
 
 int Student::getID(){
