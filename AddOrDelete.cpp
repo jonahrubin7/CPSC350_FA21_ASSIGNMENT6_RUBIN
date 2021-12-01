@@ -23,6 +23,8 @@ void AddOrDelete::addStudent(){
   cout << "\nAdvisor ID: ";
   cin >> advisorID;
 
+  Student s = new Student(studentID, studentName, grade, major, studentGPA, advisorID);
+  masterStudent->insert(studentID, s)
   //then need to create this student with the information above
   //and add them to the BST
 }
@@ -52,5 +54,5 @@ void AddOrDelete::deleteFaculty(int deleteFacMem){
   //find faculty mem in masterFaculty BST
   //get list of advisee id numbers
   //delete faculty member from BST
-  //redistribute advisees to new advisors 
+  //redistribute advisees to new advisors
 }

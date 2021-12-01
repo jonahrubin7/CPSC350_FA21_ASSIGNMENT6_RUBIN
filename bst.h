@@ -8,7 +8,7 @@ template <class T>
 class TreeNode{
 public:
   TreeNode();
-  TreeNode(T key);
+  TreeNode(int key, T value);
   virtual ~TreeNode(); // abstract class
   T key;
   TreeNode<T> *left;
@@ -19,11 +19,11 @@ template <class T>
 TreeNode<T>::TreeNode(){
   left = NULL;
   right = NULL;
-  key = NULL;
+  key = 0;
 }
 
 template <class T>
-TreeNode<T>::TreeNode(T k){
+TreeNode<T>::TreeNode(int k){
   left = NULL;
   right = NULL;
   key = k;
@@ -114,8 +114,8 @@ T* BST<T>::getMax(){
 
 
 template <class T>
-void BST<T>::insert(T value){
-  TreeNode<T> *node = new TreeNode<T>(value);
+void BST<T>::insert(int key, T value){
+  TreeNode<T> *node = new TreeNode<T>(key, value);
   if(isEmpty()){
     root = node;
   }else{

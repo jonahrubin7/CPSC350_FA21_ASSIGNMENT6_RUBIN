@@ -5,40 +5,54 @@ FileProcessor::FileProcessor(){} //empty constructor
 
 FileProcessor::~FileProcessor(){} //empty destructor
 
-void FileProcessor::processFile(string inputFile){
-  inFS.open(inputFile);
+void FileProcessor::processFile(){
 
-  string input = "";
+  inFS.open("studentTable.txt");
   if(!inFS.is_open()){
-    cout << "Sorry, the file you have entered cannot be opened, please try again with a valid file." << endl;
+    masterStudent = new bst<student>();
     exit(1);
-  }
-
-  if(inputFile == "studentTable"){
-    //for every line, create student, add student to BST
-  }else if(inputFile == "facultyTable"){
-    //for every line, create faculty member, add faculty to BST
-  }
-
-  //this is code from last project-- irrelevant but structure will be helpful so leaving it here
-  int lineCount = 0;
-  while(!inFS.eof()){
-    if(!inFS.fail()){
-      if(lineCount == 0){
-        inFS >> numWindows;
-        // registrar = new Registrar(numWindows);
+  }else{
+    while(!inFS.eof()){
+      if(!inFS.fail()){
+        string line = "";
+        string parsed = "";
+        getline(inFS,line);
+        while(getline(line, parsed, ",")){
+          studentID = parsed;
+          name = getline(line, parsed, ",");
+          level = getline(line, parsed, ",");
+          major = getline(line, parsed, ",");
+          gpa = getline(line, parsed, ",");
+          advisor = getline(line, parsed, "");
+        }
+        Student s = new Student(studentID, name, level, major, gpa, advisor);
+        masterStudent->insert(studentID, s);
       }
-      inFS >> input;
-      int currTime = stoi(input);
-      inFS >> input;
-      int numStudents = stoi(input);
-      for(int i = 0; i < numStudents; i++){
-        inFS >> input;
-        int timeNeeded = stoi(input);
-        Student* currStudent = new Student(timeNeeded,currTime);
-        students->insert(currStudent);
+    }
+  }
+  //populate bst
+  
+
+  inFS.open("facultyTable.txt");
+  if(!inFS.is_open()){
+    masterFaculty = new bst<faculty>();
+    exit(1);
+  }else{
+    while(!inFS.eof()){
+      if(!inFS.fail()){
+        string line = "";
+        string parsed = "";
+        getline(inFS,line);
+        while(getline(line, parsed, ",")){
+          facultyID = parsed;
+          name = getline(line, parsed, ",");
+          level = getline(line, parsed, ",");
+          department = getline(line, parsed, ",");
+          advisees = getline(line, parsed, "/n");
+        }
+        Faculty f = new Faculty(facultyID, name, level, department, advisees);
+        masterFaculty->insert(facultyID, f);
       }
-      lineCount++;
     }
   }
 }

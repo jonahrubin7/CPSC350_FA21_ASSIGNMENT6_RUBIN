@@ -11,11 +11,12 @@ class FileProcessor{
   public: //public
     FileProcessor(); //constructor
     ~FileProcessor();  //destructor
-    void processFile(string inputFile); //define method that processes the file
+    void processFile(); //define method that processes the file
 
   private: //private variables
-    //ifstream inFS; //read in the file
-    // Registrar* registrar;
-    //GenQueue<Student>* students;
+    ifstream inFS; //read in the file
+
+    bst<Student>* masterStudent;
+    bst<Faculty>* masterFaculty;
 };
 #endif
