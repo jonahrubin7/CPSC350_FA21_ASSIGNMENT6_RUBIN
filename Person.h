@@ -11,6 +11,8 @@ public:
   ~Person();
   //getters and setters
   int getID();
+  string getName();
+  string getLevel();
 
 
 private:

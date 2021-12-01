@@ -9,9 +9,9 @@ Person::Person(){
 }
 
 Person::Person(int id, string name, string level){
-  m_level = level;
   m_ID = id;
   m_name = name;
+  m_level = level;
 }
 
 Person::~Person(){
@@ -22,6 +22,10 @@ string Person::getName(){
   return m_name;
 }
 
-int Student::getID(){
+int Person::getID(){
   return m_ID;
+}
+
+string Person::getLevel(){
+  return m_level;
 }

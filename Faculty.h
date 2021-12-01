@@ -11,7 +11,9 @@ public:
 
 
 private:
-  //think i need to add the other things back
+  int m_ID;
+  string m_name;
+  string m_level;
   string m_department;
   int advisees[];
 

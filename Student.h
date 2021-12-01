@@ -9,8 +9,10 @@ public:
   Student(int id, string name, string level, string major, double gpa, int advisor);
   ~Student();
   //getters and setters
-  void setAdvisor();
-  int getID();
+  void setAdvisor(string advisor);
+  double getGPA();
+  string getAdvisor();
+  string getMajor();
 
 
 private:
