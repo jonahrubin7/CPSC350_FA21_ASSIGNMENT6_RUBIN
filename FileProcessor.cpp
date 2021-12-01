@@ -18,20 +18,22 @@ void FileProcessor::processFile(){
         string parsed = "";
         getline(inFS,line);
         while(getline(line, parsed, ",")){
-          studentID = parsed;
-          name = getline(line, parsed, ",");
-          level = getline(line, parsed, ",");
-          major = getline(line, parsed, ",");
-          gpa = getline(line, parsed, ",");
-          advisor = getline(line, parsed, "");
+          string studentStringID = parsed;
+          int studentID =
+          string name = getline(line, parsed, ",");
+          string level = getline(line, parsed, ",");
+          string major = getline(line, parsed, ",");
+          string gpa = getline(line, parsed, ",");
+          int sGPA = stringToInt(studentStringID);
+          string advisor = getline(line, parsed, "");
         }
-        Student s = new Student(studentID, name, level, major, gpa, advisor);
+        Student s = new Student(studentID, name, level, major, sGPA, advisor);
         masterStudent->insert(studentID, s);
       }
     }
   }
   //populate bst
-  
+
 
   inFS.open("facultyTable.txt");
   if(!inFS.is_open()){
@@ -44,15 +46,26 @@ void FileProcessor::processFile(){
         string parsed = "";
         getline(inFS,line);
         while(getline(line, parsed, ",")){
-          facultyID = parsed;
-          name = getline(line, parsed, ",");
-          level = getline(line, parsed, ",");
-          department = getline(line, parsed, ",");
-          advisees = getline(line, parsed, "/n");
+          string facultyStringID = parsed;
+          int facultyID = stringToInt(facultyStringID);
+          string name = getline(line, parsed, ",");
+          string level = getline(line, parsed, ",");
+          string department = getline(line, parsed, ",");
+          string advisees = getline(line, parsed, "/n");
         }
         Faculty f = new Faculty(facultyID, name, level, department, advisees);
         masterFaculty->insert(facultyID, f);
       }
     }
   }
+}
+
+
+int FileProcessor::stringToInt(string id){
+  int number = 0;
+  for(int n = 0; n < id.size(); ++n){
+    number *= 10;
+    number += (int(id[n]) - '0');
+  }
+  return number;
 }

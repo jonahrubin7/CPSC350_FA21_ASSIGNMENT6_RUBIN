@@ -3,17 +3,15 @@
 
 using namespace std;
 
-class Faculty{
+class Faculty : public Person{
 public:
   Faculty();
-  Faculty(int id, string name, string level, string department)
+  Faculty(string department)
   ~Faculty();
 
 
 private:
-  int m_ID;
-  string m_name;
-  string m_level;
+  //think i need to add the other things back
   string m_department;
   int advisees[];
 

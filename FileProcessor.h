@@ -12,6 +12,7 @@ class FileProcessor{
     FileProcessor(); //constructor
     ~FileProcessor();  //destructor
     void processFile(); //define method that processes the file
+    int stringToInt(string id);
 
   private: //private variables
     ifstream inFS; //read in the file
