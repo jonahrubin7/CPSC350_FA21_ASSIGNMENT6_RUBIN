@@ -25,7 +25,7 @@ Student::~Student(){
 
 }
 
-void Student::setAdvisor(string advisor){
+void Student::setAdvisor(int advisor){
   m_advisor = advisor;
 }
 
@@ -37,6 +37,6 @@ string Student::getMajor(){
   return m_major;
 }
 
-string Student::getAdvisor(){
+int Student::getAdvisor(){
   return m_advisor;
 }

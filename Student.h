@@ -11,7 +11,7 @@ public:
   //getters and setters
   void setAdvisor(string advisor);
   double getGPA();
-  string getAdvisor();
+  int getAdvisor();
   string getMajor();
 
 
