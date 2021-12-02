@@ -10,7 +10,8 @@ public:
   TreeNode();
   TreeNode(int key, T value);
   virtual ~TreeNode(); // abstract class
-  T key;
+  int key;
+  T value;
   TreeNode<T> *left;
   TreeNode<T> *right;
 };
@@ -20,13 +21,15 @@ TreeNode<T>::TreeNode(){
   left = NULL;
   right = NULL;
   key = 0;
+  value = NULL;
 }
 
 template <class T>
-TreeNode<T>::TreeNode(int k){
+TreeNode<T>::TreeNode(int k, T v){
   left = NULL;
   right = NULL;
   key = k;
+  value = v;
 }
 
 template <class T>
@@ -41,9 +44,9 @@ class BST{
 public:
   BST();
   virtual ~BST();
-  void insert(T value);
-  bool contains(T value);
-  bool deleteNode(T k);
+  void insert(int key, T value);
+  bool contains(int key);
+  bool deleteNode(int k);
   bool isEmpty();
 
   T*getMin();
@@ -125,7 +128,7 @@ void BST<T>::insert(int key, T value){
     while(true){
       parent = current;
 
-      if(value < current->key){
+      if(key < current->key){
         current = current->left;
         if(current == NULL){
           //found insertion point
@@ -144,15 +147,15 @@ void BST<T>::insert(int key, T value){
 }
 
 template <class T>
-bool BST<T>::contains(T value){
+bool BST<T>::contains(int key){
   if(isEmpty()){
     return false;
   }
 
   TreeNode<T> *current = root;
 
-  while(current->key != value){
-    if(value < current ->key){
+  while(current->key != key){
+    if(key < current ->key){
       current = current ->left;
     }else{
       current = current->right;
@@ -166,7 +169,7 @@ bool BST<T>::contains(T value){
 
 
 template <class T>
-bool BST<T>::deleteNode(T k){
+bool BST<T>::deleteNode(int k){
   if(isEmpty()){
     return false;
   }

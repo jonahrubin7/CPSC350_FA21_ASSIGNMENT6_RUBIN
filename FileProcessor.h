@@ -4,6 +4,10 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+#include "bst.h"
+#include "Student.h"
+#include "Faculty.h"
 
 using namespace std;
 
@@ -17,7 +21,7 @@ class FileProcessor{
   private: //private variables
     ifstream inFS; //read in the file
 
-    bst<Student>* masterStudent;
-    bst<Faculty>* masterFaculty;
+    BST<Student>* masterStudent;
+    BST<Faculty>* masterFaculty;
 };
 #endif
