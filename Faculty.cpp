@@ -10,8 +10,8 @@ Faculty::Faculty(){
   advisees[120];
 }
 
-Faculty::Faculty(int ID, string name; string level, string department){
-  m_ID = ID;
+Faculty::Faculty(int id, string name, string level, string department){
+  m_ID = id;
   m_name = name;
   m_level = level;
   m_department = department;

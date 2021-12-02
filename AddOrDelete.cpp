@@ -30,6 +30,7 @@ void AddOrDelete::addStudent(){
 }
 
 void AddOrDelete::deleteStudent(int deleteStu){
+  masterStudent->deleteNode(deleteStu);
   //find the student in the masterStudent BST
   //get id of advisor
   //delete student from BST

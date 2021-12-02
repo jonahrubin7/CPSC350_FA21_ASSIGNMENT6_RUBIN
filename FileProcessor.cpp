@@ -57,7 +57,7 @@ void FileProcessor::processFile(){
   //         string name = getline(line, parsed, ",");
   //         string level = getline(line, parsed, ",");
   //         string department = getline(line, parsed, ",");
-  //         string advisees = getline(line, parsed, "/n");
+  //         string advisees = getline(line, parsed, "\n");
   //       }
   //       Faculty f = new Faculty(facultyID, name, level, department, advisees);
   //       masterFaculty->insert(facultyID, f);

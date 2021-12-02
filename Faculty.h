@@ -6,7 +6,7 @@ using namespace std;
 class Faculty : public Person{
 public:
   Faculty();
-  Faculty(string department);
+  Faculty(int id, string name, string level, string department);
   ~Faculty();
 
 
