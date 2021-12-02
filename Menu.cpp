@@ -96,4 +96,8 @@ void Menu::chooseCommand(){
   }else{
     cout << "Sorry, the number you have entered does not seem to be a valid option. Please review the menu options and make a new selection." << endl;
   }
+
+  if(choice != "14"){
+    displayOptions();
+  }
 }
