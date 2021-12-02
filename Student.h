@@ -1,6 +1,6 @@
 #ifndef STUDENT_H //header guard
 #define STUDENT_H //header guard
-
+#include "Person.h"
 using namespace std;
 
 class Student : public Person{
