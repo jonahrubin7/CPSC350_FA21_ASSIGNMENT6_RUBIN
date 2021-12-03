@@ -7,7 +7,6 @@ Faculty::Faculty(){
   m_name = "";
   m_level = "";
   m_department = "";
-  advisees[120];
 }
 
 Faculty::Faculty(int id, string name, string level, string department){
@@ -15,7 +14,7 @@ Faculty::Faculty(int id, string name, string level, string department){
   m_name = name;
   m_level = level;
   m_department = department;
-  advisees[120]; //not sure what to make this. Number of id numbers
+  //add param and advisee list 
 }
 
 Faculty::~Faculty(){

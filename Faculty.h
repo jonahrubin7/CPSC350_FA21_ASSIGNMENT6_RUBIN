@@ -15,7 +15,7 @@ private:
   string m_name;
   string m_level;
   string m_department;
-  int advisees[];
+  DoublyLinkedList<T> *advisees = new DoublyLinkedList<T>();
 
   //overloaded operators??
 };
