@@ -5,39 +5,40 @@ Simulation::Simulation(){} //empty constructor
 
 Simulation::~Simulation(){} //empty destructor
 
-void Simulation::Simulation(){
+void Simulation::Simulate(){
   string studentStringID = "";
   int studentID = 0;
   string name = "";
   string level = "";
   string major = "";
-  double gpa = 0.0;
+  string gpa = "";
+  double sGPA = 0.0;
   string advisor = "";
+  int intAdvisor = 0;
+  string line = "";
   inFS.open("studentTable.txt");
   if(!inFS.is_open()){
     masterStudent = new BST<Student>();
     exit(1);
   }else{
     while(!inFS.eof()){
-      if(!inFS.fail()){
-        string line = "";
-        string parsed = "";
-        getline(inFS,line);
-        while(getline(line, parsed, ",")){
-          studentStringID = parsed;
-          studentID = stringToInt(studentStringID);
-          name = getline(line, parsed, ",");
-          level = getline(line, parsed, ",");
-          major = getline(line, parsed, ",");
-          gpa = getline(line, parsed, ",");
-          sGPA = stringToInt(studentStringID); //doesnt work
-          advisor = getline(line, parsed, "");
-        }
-        Student s = new Student(studentID, name, level, major, sGPA, advisor);
-        masterStudent->insert(studentID, s);
+      getline(inFS, line);
+      stringstream parsed(line);
+      getline(parsed, studentStringID, ',');
+      studentID = stringToInt(studentStringID);
+      getline(parsed, name, ',');
+      getline(parsed, level, ',');
+      getline(parsed, major, ',');
+      getline(parsed, gpa, ',');
+      //sGPA = stringToInt(studentStringID); //doesnt work
+      getline(parsed, advisor, '\n'); //maybe should be \n
+      intAdvisor = stringToInt(advisor);
+      masterStudent = new BST<Student>();
+      Student s = Student(studentID, name, level, major, sGPA, intAdvisor);
+      masterStudent->insert(studentID, s);
       }
     }
-  }
+  //}
   //populate bst
 
 

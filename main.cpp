@@ -3,12 +3,12 @@
 //main method only calls commands for the simulation
 int main(int argc, char** argv){
   Menu m;
-  FileProcessor f;
+  Simulation s;
 
   // need to look for the correct file names in the current directory
   // if files found, send file to file processor like the lines below
-  f.processFile("studentTable") //this line will not work rn
-  f.processFile("facultyTable") //this line will not work rn
+  s.Simulate("studentTable") //this line will not work rn
+  s.Simulate("facultyTable") //this line will not work rn
 
   //BSTs will have now been created... somewhere
 

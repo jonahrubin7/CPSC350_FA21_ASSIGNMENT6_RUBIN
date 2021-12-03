@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include "bst.h"
 #include "Student.h"
 #include "Faculty.h"
@@ -15,7 +16,7 @@ class Simulation{
   public: //public
     Simulation(); //constructor
     ~Simulation();  //destructor
-    void processFile(); //define method that processes the file
+    void Simulate(); //define method that processes the file
     int stringToInt(string id);
 
   private: //private variables
