@@ -1,11 +1,11 @@
-#include "FileProcessor.h"
+#include "Simulation.h"
 
 
-FileProcessor::FileProcessor(){} //empty constructor
+Simulation::Simulation(){} //empty constructor
 
-FileProcessor::~FileProcessor(){} //empty destructor
+Simulation::~Simulation(){} //empty destructor
 
-void FileProcessor::processFile(){
+void Simulation::Simulation(){
   string studentStringID = "";
   int studentID = 0;
   string name = "";
@@ -67,7 +67,7 @@ void FileProcessor::processFile(){
 }
 
 
-int FileProcessor::stringToInt(string id){
+int Simulation::stringToInt(string id){
   int number = 0;
   for(int n = 0; n < id.size(); ++n){
     number *= 10;

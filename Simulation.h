@@ -1,5 +1,5 @@
-#ifndef FILEPROCESSOR_H //header guard
-#define FILEPROCESSOR_H //header guard
+#ifndef SIMULATION_H //header guard
+#define SIMULATION_H //header guard
 
 
 #include <iostream>
@@ -11,10 +11,10 @@
 
 using namespace std;
 
-class FileProcessor{
+class Simulation{
   public: //public
-    FileProcessor(); //constructor
-    ~FileProcessor();  //destructor
+    Simulation(); //constructor
+    ~Simulation();  //destructor
     void processFile(); //define method that processes the file
     int stringToInt(string id);
 
