@@ -1,9 +1,11 @@
 #ifndef EDIT_H //header guard
 #define EDIT_H //header guard
 
+#include "Simulation.h"
+
 namespace std;
 
-class Edit{
+class Edit : public Simulation{
 
 public:
   Edit();

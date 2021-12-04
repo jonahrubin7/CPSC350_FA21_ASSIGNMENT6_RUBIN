@@ -1,9 +1,11 @@
 #ifndef DISPLAY_H //header guard
 #define DISPLAY_H //header guard
 
+#include "Simulation.h"
+
 namespace std;
 
-class Display{
+class Display : public Simulation{
 
 public:
   Display();

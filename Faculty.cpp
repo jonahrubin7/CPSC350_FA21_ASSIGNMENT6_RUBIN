@@ -9,14 +9,19 @@ Faculty::Faculty(){
   m_department = "";
 }
 
-Faculty::Faculty(int id, string name, string level, string department){
+Faculty::Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees){
   m_ID = id;
   m_name = name;
   m_level = level;
   m_department = department;
-  //add param and advisee list 
+  m_advisees = advisees;
+  //add param and advisee list
 }
 
 Faculty::~Faculty(){
 
+}
+
+int Faculty::getID(){
+  return m_ID;
 }

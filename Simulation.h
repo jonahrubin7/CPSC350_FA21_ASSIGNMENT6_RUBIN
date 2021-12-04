@@ -1,5 +1,7 @@
 #ifndef SIMULATION_H //header guard
 #define SIMULATION_H //header guard
+#include <string>
+using namespace std;
 
 
 #include <iostream>
@@ -10,7 +12,7 @@
 #include "Student.h"
 #include "Faculty.h"
 
-using namespace std;
+//using namespace std;
 
 class Simulation{
   public: //public
@@ -18,6 +20,7 @@ class Simulation{
     ~Simulation();  //destructor
     void Simulate(); //define method that processes the file
     int stringToInt(string id);
+    double gpaStringToDouble(string gpa);
 
   private: //private variables
     ifstream inFS; //read in the file

@@ -1,6 +1,5 @@
 #include "Person.h"
-
-using namespace std;
+//using namespace std;
 
 Person::Person(){
   m_ID = 0;

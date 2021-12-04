@@ -46,6 +46,7 @@ public:
   virtual ~BST();
   void insert(int key, T value);
   bool contains(int key);
+  TreeNode<T>* find(int key);
   bool deleteNode(int k);
   bool isEmpty();
 
@@ -270,6 +271,28 @@ TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d){
     sp->left = successor->right;
     successor->right = d->right;
   }
+}
+
+
+template <class T>
+TreeNode<T>* BST<T>::find(int key){
+  if(isEmpty()){
+    return false;
+  }
+
+  TreeNode<T> *current = root;
+
+  while(current->key != key){
+    if(key < current ->key){
+      current = current ->left;
+    }else{
+      current = current->right;
+    }
+    if(current  == NULL){
+      return false;
+    }
+  }
+  return current;
 }
 
 // Calcsum(TreeNode<T> *node){

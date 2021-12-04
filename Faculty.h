@@ -1,14 +1,18 @@
 #ifndef FACULTY_H //header guard
 #define FACULTY_H //header guard
+#include <string>
+using namespace std;
+
+
 #include "Person.h"
 #include "LinkedList.h"
-using namespace std;
 
 class Faculty : public Person{
 public:
   Faculty();
-  Faculty(int id, string name, string level, string department);
+  Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees);
   ~Faculty();
+  int getID();
 
 
 private:
@@ -16,8 +20,8 @@ private:
   string m_name;
   string m_level;
   string m_department;
-  DoublyLinkedList<Student> *advisees = new DoublyLinkedList<Student>();
-
+  DoublyLinkedList<int> *m_advisees = new DoublyLinkedList<int>();
+  //idk
   //overloaded operators??
 };
 #endif

@@ -23,10 +23,10 @@ void AddOrDelete::addStudent(){
   cout << "\nAdvisor ID: ";
   cin >> advisorID;
 
+  //create student
   Student s = new Student(studentID, studentName, grade, major, studentGPA, advisorID);
-  masterStudent->insert(studentID, s)
-  //then need to create this student with the information above
-  //and add them to the BST
+  //add student
+  masterStudent->insert(studentID, s);
 }
 
 void AddOrDelete::deleteStudent(int deleteStu){

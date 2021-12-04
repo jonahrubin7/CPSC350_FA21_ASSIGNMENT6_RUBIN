@@ -1,4 +1,5 @@
 #include "Simulation.h"
+#include "Menu.h"
 
 //main method only calls commands for the simulation
 int main(int argc, char** argv){

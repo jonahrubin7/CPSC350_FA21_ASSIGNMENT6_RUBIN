@@ -1,9 +1,11 @@
 #ifndef ADDORDELETE_H //header guard
 #define ADDORDELETE_H //header guard
 
+#include "Simulation.h"
+
 namespace std;
 
-class AddOrDelete{
+class AddOrDelete : public Simulation{
 
 public:
   AddOrDelete();

@@ -1,6 +1,5 @@
 #include "Student.h"
 
-using namespace std;
 
 Student::Student(){
   m_ID = 0;
@@ -11,9 +10,9 @@ Student::Student(){
   m_advisor = 0;
 }
 
-Student::Student(int ID, string name, string level, string major, double gpa, int advisor){
+Student::Student(int id, string name, string level, string major, double gpa, int advisor){
   //think i need to add the other things back
-  m_ID = ID;
+  m_ID = id;
   m_name = name;
   m_level = level;
   m_major = major;
@@ -23,6 +22,10 @@ Student::Student(int ID, string name, string level, string major, double gpa, in
 
 Student::~Student(){
 
+}
+
+int Student::getID(){
+  return m_ID;
 }
 
 void Student::setAdvisor(int advisor){

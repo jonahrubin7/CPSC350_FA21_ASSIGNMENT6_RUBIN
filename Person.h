@@ -1,13 +1,15 @@
 #ifndef PERSON_H //header guard
 #define PERSON_H //header guard
-
+#include <string>
 using namespace std;
+#include "LinkedList.h"
+
 
 //abstract person class
 class Person{
 public:
   Person();
-  Person(int id, string name);
+  Person(int id, string name, string level);
   ~Person();
   //getters and setters
   int getID();
