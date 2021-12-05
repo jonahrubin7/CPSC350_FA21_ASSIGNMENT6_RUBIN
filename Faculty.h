@@ -13,6 +13,7 @@ public:
   Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees);
   ~Faculty();
   int getID();
+  DoublyLinkedList<int>* getAdvisees();
   void print();
 
 

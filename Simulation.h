@@ -26,7 +26,7 @@ class Simulation{
     void printBSTs();
 
     Student createStudent(string studentStringID, string name, string level, string major, string gpa, string advisor);
-    Faculty createFaculty(string facultyStringID, string name, string level, string department, string advisees);
+    Faculty createFaculty(string facultyStringID, string name, string level, string department, string advisees, bool added);
 
     //Display options
     void printStudents(); //1

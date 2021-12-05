@@ -32,8 +32,15 @@ void Faculty::print(){
   cout << "Level: " << m_level << endl;
   cout << "Department: " << m_department << endl;
   cout << "Advisees: ";
-  for(int i = 0; i <= m_advisees->getSize(); ++i){
+  for(int i = 0; i < m_advisees->getSize(); ++i){
     cout << m_advisees->accessAtPos(i);
+    if(i != m_advisees->getSize()-1){
+      cout << ", ";
+    }
   }
   cout << " " << endl;
+}
+
+DoublyLinkedList<int>* Faculty::getAdvisees(){
+  return m_advisees;
 }

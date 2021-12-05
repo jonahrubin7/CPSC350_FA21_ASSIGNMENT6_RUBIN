@@ -77,7 +77,11 @@ void BST<T>::recPrint(TreeNode<T> *node){
     }
   //cout << node->key << endl;
   recPrint(node->left);
-  cout << node->key << endl;
+  //prints all of the info for every type person in ascending order
+  T studentOrFaculty = node->value;
+  cout << endl;
+  studentOrFaculty.print();
+  //cout << node->key << endl;
   recPrint(node->right);
 }
 

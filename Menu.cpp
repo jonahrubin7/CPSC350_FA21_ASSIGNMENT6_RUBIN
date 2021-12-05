@@ -56,7 +56,7 @@ void Menu::chooseCommand(){
     string facultyID;
     cout << "Please enter faculty ID: ";
     cin >> facultyID;
-    //s.printAdvisees(facultyID);
+    s.printAdvisees(facultyID);
   }else if(choice == "7"){
     s.addStudent();
   }else if(choice == "8"){
@@ -100,6 +100,9 @@ void Menu::chooseCommand(){
   if(choice == "0"){
     cout << "done!" << endl;
   }else if(choice != "14"){
+    cout << "\nWhen you are done viewing this information, enter any input and hit return to go back to the menu.\n" << endl;
+    string go = "";
+    cin >> go;
     displayOptions();
   }
 }

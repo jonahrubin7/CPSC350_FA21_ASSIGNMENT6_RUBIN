@@ -30,10 +30,10 @@ string Person::getLevel(){
   return m_level;
 }
 
-string Person::getCall(){
-  return m_call;
-}
-
-void Person::setCall(string call){
-  m_call = call;
-}
+// string Person::getCall(){
+//   return m_call;
+// }
+// 
+// void Person::setCall(string call){
+//   m_call = call;
+// }

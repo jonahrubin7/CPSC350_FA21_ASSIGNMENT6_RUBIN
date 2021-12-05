@@ -71,7 +71,7 @@ void Simulation::CreateInitialBSTs(){
         advisees = "";
         getline(parsed, advisees, '\n');
 
-        Faculty f = createFaculty(facultyStringID, name, level, department, advisees);
+        Faculty f = createFaculty(facultyStringID, name, level, department, advisees, false);
         id = f.getID();
         masterFaculty->insert(id, f);
 
@@ -80,7 +80,7 @@ void Simulation::CreateInitialBSTs(){
   }
   inFS.close();
 
-  printBSTs();
+  //printBSTs();
 }
 
 
@@ -102,11 +102,12 @@ double Simulation::gpaStringToDouble(string gpa){
   for(int n = 0; n < gpa.size(); ++n){
     if(n == 0){
       returnGPA = (double(gpa[n]) - '0');
-    }else if(n > 1)
-    currNum = (double(gpa[n]) - '0');
-    ++count;
-    for(int i = 0; i < count; ++i){
-      currNum = currNum/10;
+    }else if(n > 1){
+      currNum = (double(gpa[n]) - '0');
+      ++count;
+      for(int i = 0; i < count; ++i){
+        currNum = currNum/10;
+      }
     }
     returnGPA += currNum;
   }
@@ -130,7 +131,7 @@ Student Simulation::createStudent(string studentStringID, string name, string le
   return newStudent;
 }
 
-Faculty Simulation::createFaculty(string facultyStringID, string name, string level, string department, string advisees){
+Faculty Simulation::createFaculty(string facultyStringID, string name, string level, string department, string advisees, bool added){
   facultyID = stringToInt(facultyStringID);
   //not sure if the advisee list is working 100%
   string currAdvisee = "";
@@ -141,9 +142,19 @@ Faculty Simulation::createFaculty(string facultyStringID, string name, string le
     }else{
       advisee = stringToInt(currAdvisee);
       currAdvisee = "";
-      ++i;
+      if(added){
+        ++i;
+      }
       adviseeIDs->insertBack(advisee);
     }
+
+    if(i == advisees.size()-1){
+      advisee = stringToInt(currAdvisee);
+      currAdvisee = "";
+      //++i;
+      adviseeIDs->insertBack(advisee);
+    }
+
   }
   Faculty newFaculty = Faculty(facultyID, name, level, department, adviseeIDs);
   return newFaculty;
@@ -167,7 +178,9 @@ void Simulation::printFaculty(){
 void Simulation::printStudent(string studentIDstring){
   studentID = stringToInt(studentIDstring);
   Student printStudent = masterStudent->find(studentID);
+  cout << "\nStudent Information:\n" << endl;
   printStudent.print();
+  cout << endl;
   //masterFaculty->printStudent();
   //cout << "Student ID: " << studentID << endl;
   //neeed to do this one
@@ -177,7 +190,9 @@ void Simulation::printStudent(string studentIDstring){
 void Simulation::printFaculty(string facultyIDstring){
   facultyID = stringToInt(facultyIDstring);
   Faculty printFac = masterFaculty->find(facultyID);
+  cout << "\nFaculty Information:\n" << endl;
   printFac.print();
+  cout << endl;
   //need to actually do this
 }
 
@@ -189,12 +204,31 @@ void Simulation::printAdvisor(string studentIDstring){
   //gets the students advisor id, finds it in the bst, assigns the whole faculty member to sAdvisor
   int advisorID = printAdv.getAdvisor();
   Faculty sAdvisor = masterFaculty->find(advisorID);
+  cout << "\nAdvisor Information:\n" << endl;
   sAdvisor.print();
+  cout << endl;
 }
 
 //6
 void Simulation::printAdvisees(string facultyIDstring){
+  int advisorID = stringToInt(facultyIDstring);
+  Faculty advisor = masterFaculty->find(advisorID);
 
+  DoublyLinkedList<int> *advisees = advisor.getAdvisees();
+
+  for(int i = 0; i < advisees->getSize(); ++i){
+    int id = advisees->accessAtPos(i);
+    Student s = masterStudent->find(id);
+    cout << "\nAdvisee #" << i+1 << endl;
+    s.print();
+  }
+
+  // for(int i = 0; i < advisees->getSize(); ++i){
+  //   cout << advisees->accessAtPos(i);
+  //   if(i != advisees->getSize()-1){
+  //     cout << ", ";
+  //   }
+  // }
 
 }
 
@@ -204,27 +238,14 @@ void Simulation::addStudent(){
   cout << "ID: ";
   cin >> studentStringID;
   cout << "\nName: ";
-  cin >> name;
+  getline(cin >> ws, name);
   cout << "\nGrade: ";
-  cin.clear();
-  //cin.ignore();
   cin >> level;
   cout << "\nMajor: ";
-  string majors;
-  //getline(cin, majors);
-  //major = majors;
-  cout << "THIS IS MAJOR: " << major << endl;
-  //cin >> major;
-  //cin.get(string major);
-  //cin >> major;
-  cin.ignore();
+  getline(cin >> ws, major);
   cout << "\nGPA: ";
-  cin.clear();
-  cin.ignore();
   cin >> gpa;
   cout << "\nAdvisor ID: ";
-  cin.clear();
-  cin.ignore();
   cin >> advisor;
 
   //create student
@@ -242,15 +263,15 @@ void Simulation::addFaculty(){
   cout << "ID: ";
   cin >> facultyStringID;
   cout << "\nName: ";
-  cin >> name;
+  getline(cin >> ws, name);
   cout << "\nLevel: ";
-  cin >> level;
+  getline(cin >> ws, level);
   cout << "\nDepartment: ";
-  cin >> department;
+  getline(cin >> ws, department);
   cout << "\nPlease enter the student IDs of all advisees in a comma and space seperated list (EX: 14256, 23763, 87261, ...): " << endl;
-  cin >> advisees;
+  getline(cin >> ws, advisees);
 
-  Faculty f = createFaculty(facultyStringID, name, level, department, advisees);
+  Faculty f = createFaculty(facultyStringID, name, level, department, advisees, true);
 
   //Faculty f = Faculty(facultyID, facultyName, level, department, addAdvisees);
   id = f.getID();
