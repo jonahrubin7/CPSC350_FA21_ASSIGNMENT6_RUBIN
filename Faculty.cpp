@@ -7,6 +7,7 @@ Faculty::Faculty(){
   m_name = "";
   m_level = "";
   m_department = "";
+  m_isFaculty = true;
 }
 
 Faculty::Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees){

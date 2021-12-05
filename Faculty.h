@@ -23,6 +23,7 @@ private:
   string m_level;
   string m_department;
   DoublyLinkedList<int> *m_advisees = new DoublyLinkedList<int>();
+  bool m_isFaculty;
   //idk
   //overloaded operators??
 };
