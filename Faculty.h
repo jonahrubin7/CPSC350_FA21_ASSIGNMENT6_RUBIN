@@ -16,6 +16,7 @@ public:
   DoublyLinkedList<int>* getAdvisees();
   void print();
   void addToAdvisees(int idNum);
+  void removeAdvisee(int idNum);
 
 
 private:

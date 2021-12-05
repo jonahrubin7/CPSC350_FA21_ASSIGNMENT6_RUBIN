@@ -8,9 +8,11 @@ using namespace std;
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <cstdlib>
 #include "bst.h"
 #include "Student.h"
 #include "Faculty.h"
+
 
 //using namespace std;
 
@@ -38,9 +40,9 @@ class Simulation{
 
     //Add or delete options
     void addStudent();
-    //void deleteStudent(string id);
+    void deleteStudent(string id);
     void addFaculty();
-    //void deleteFaculty(string id);
+    void deleteFaculty(string id);
 
     //Edit functions
     //void changeAdvisor(string studentID, string newAdvisor);
@@ -69,6 +71,13 @@ class Simulation{
     string department;
     int advisee;
 
+    DoublyLinkedList<int> *adviseeIDs;
+
+    DoublyLinkedList<int> *facultyIDs;
+    DoublyLinkedList<int> *studentIDs;
+
+    int numFacultyMembers;
+    int numStudents;
 
     BST<Student>* masterStudent;
     BST<Faculty>* masterFaculty;

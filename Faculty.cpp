@@ -49,3 +49,7 @@ DoublyLinkedList<int>* Faculty::getAdvisees(){
 void Faculty::addToAdvisees(int idNum){
   m_advisees->insertBack(idNum);
 }
+
+void Faculty::removeAdvisee(int idNum){
+  m_advisees->removeNode(idNum);
+}

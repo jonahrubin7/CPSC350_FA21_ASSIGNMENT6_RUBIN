@@ -4,6 +4,8 @@
 Simulation::Simulation(){
   masterStudent = new BST<Student>();
   masterFaculty = new BST<Faculty>();
+  facultyIDs = new DoublyLinkedList<int>;
+  studentIDs = new DoublyLinkedList<int>;
 } //empty constructor
 
 Simulation::~Simulation(){} //empty destructor
@@ -23,6 +25,8 @@ void Simulation::CreateInitialBSTs(){
   facultyID = 0;
   department = "";
   advisee = 0;
+  numFacultyMembers = 0;
+  numStudents = 0;
 
 //adds to the student BST if file is found
   inFS.open("studentTable");
@@ -46,6 +50,7 @@ void Simulation::CreateInitialBSTs(){
         Student s = createStudent(studentStringID, name, level, major, gpa, advisor);
         id = s.getID();
         masterStudent->insert(id, s);
+        studentIDs->insertBack(id);
       }
     }
   }
@@ -74,6 +79,7 @@ void Simulation::CreateInitialBSTs(){
         Faculty f = createFaculty(facultyStringID, name, level, department, advisees, false);
         id = f.getID();
         masterFaculty->insert(id, f);
+        facultyIDs->insertBack(id);
 
       }
     }
@@ -135,7 +141,7 @@ Faculty Simulation::createFaculty(string facultyStringID, string name, string le
   facultyID = stringToInt(facultyStringID);
   //not sure if the advisee list is working 100%
   string currAdvisee = "";
-  DoublyLinkedList<int> *adviseeIDs = new DoublyLinkedList<int>();
+  adviseeIDs = new DoublyLinkedList<int>();
   for(int i = 0; i < advisees.size(); ++i){
     if(advisees[i] != ','){
       currAdvisee += advisees[i];
@@ -253,6 +259,7 @@ void Simulation::addStudent(){
 
   id = student.getID();
   masterStudent->insert(id, student);
+  studentIDs->insertBack(id);
 
   cout << "\nThe student you have entered has been inserted into the database.\n";
 
@@ -260,6 +267,17 @@ void Simulation::addStudent(){
   Faculty advisor = masterFaculty->find(advisorID);
   advisor.addToAdvisees(id);
   //printBSTs();
+}
+
+//8
+void Simulation::deleteStudent(string id){
+  int intID = stringToInt(id);
+  Student deleteS = masterStudent->find(intID);
+  int advisorID = deleteS.getAdvisor();
+  masterStudent->deleteNode(intID);
+  Faculty advisor = masterFaculty->find(advisorID);
+  advisor.removeAdvisee(intID);
+  studentIDs->removeNode(intID);
 }
 
 //9
@@ -277,15 +295,43 @@ void Simulation::addFaculty(){
   getline(cin >> ws, advisees);
 
   Faculty f = createFaculty(facultyStringID, name, level, department, advisees, true);
-
+  ++numFacultyMembers;
   //Faculty f = Faculty(facultyID, facultyName, level, department, addAdvisees);
   id = f.getID();
   //cout << f.getID() << endl;
 
   //cout << "does it seg fault here " << endl;
   masterFaculty->insert(id, f);
+  facultyIDs->insertBack(id);
   //masterFaculty->insert(id, f);
   // cin list of id numbers, not sure how to do that yet
 
   printBSTs();
+}
+
+//10
+void Simulation::deleteFaculty(string id){
+
+  int intID = stringToInt(id);
+  Faculty deleteF = masterFaculty->find(intID);
+  adviseeIDs = deleteF.getAdvisees();
+  //linked list of id nmbers, deleted faculty is removed
+  facultyIDs->removeNode(intID);
+  //--numFacultyMembers;
+  //each advisee from the list is randomly assigned to a new advisor
+  for(int i = 0; i < adviseeIDs->getSize(); ++i){
+
+    int currentStudent = adviseeIDs->accessAtPos(i);
+    int randNum = rand() % (facultyIDs->getSize());
+    int randomAdvisorID = facultyIDs->accessAtPos(randNum);
+    Faculty newAdvisor = masterFaculty->find(randomAdvisorID);
+    newAdvisor.addToAdvisees(currentStudent);
+    Student reassignedStudent = masterStudent->find(currentStudent);
+    reassignedStudent.setAdvisor(randomAdvisorID);
+
+  }
+  masterFaculty->deleteNode(intID);
+
+  cout << "\nThe faculty member has been deleted and their advisees have been randomly reassigned to new advisors\n";
+
 }

@@ -63,14 +63,14 @@ void Menu::chooseCommand(){
     string deleteStu;
     cout << "Enter the ID of the student you would like to delete: ";
     cin >> deleteStu;
-    //s.deleteStudent(deleteStu);
+    s.deleteStudent(deleteStu);
   }else if(choice == "9"){
     s.addFaculty();
   }else if(choice == "10"){
     string deleteFacMem;
     cout << "Enter the ID of the faculty member you would like to delete: ";
     cin >> deleteFacMem;
-    //s.deleteFaculty(deleteFacMem);
+    s.deleteFaculty(deleteFacMem);
   }else if(choice == "11"){
     string studentID;
     cout << "Enter the ID of the student whose advisor you'd like to change: ";

@@ -276,6 +276,7 @@ TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d){
     sp->left = successor->right;
     successor->right = d->right;
   }
+  return successor;
 }
 
 
