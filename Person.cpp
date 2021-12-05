@@ -5,6 +5,7 @@ Person::Person(){
   m_ID = 0;
   m_name = "";
   m_level = "";
+  m_call = "";
 }
 
 Person::Person(int id, string name, string level){
@@ -27,4 +28,12 @@ int Person::getID(){
 
 string Person::getLevel(){
   return m_level;
+}
+
+string Person::getCall(){
+  return m_call;
+}
+
+void Person::setCall(string call){
+  m_call = call;
 }

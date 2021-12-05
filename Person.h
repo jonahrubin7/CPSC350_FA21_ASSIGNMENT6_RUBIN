@@ -15,6 +15,8 @@ public:
   int getID();
   string getName();
   string getLevel();
+  string getCall();
+  void setCall();
 
 
 private:
@@ -22,6 +24,7 @@ private:
   int m_ID;
   string m_name;
   string m_level;
+  string m_call;
 
 
   //compare (greater than or less than) ???
