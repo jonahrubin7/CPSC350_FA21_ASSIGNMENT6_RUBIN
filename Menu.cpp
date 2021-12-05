@@ -30,74 +30,84 @@ void Menu::displayOptions(){
 
 
 void Menu::chooseCommand(){
-  cout << "/nPlease select an option from the menu displayed above: ";
+  cout << "\nPlease select an option from the menu displayed above: ";
   cin >> choice;
 
   if(choice == "1"){
-    display.printStudents();
+    s.printStudents();
   }else if(choice == "2"){
-    display.printFaculty();
+    s.printFaculty();
   }else if(choice == "3"){
-    int studentID;
-    cout << "Please enter student ID: ";
+    string studentID;
+    cout << "Please enter student ID of the student you would like to display: ";
     cin >> studentID;
-    display.printStudent(studentID);
+    s.printStudent(studentID);
   }else if(choice == "4"){
-    int facultyID;
+    string facultyID;
     cout << "Please enter faculty ID: ";
     cin >> facultyID;
-    display.printFaculty(facultyID);
+    s.printFaculty(facultyID);
   }else if(choice == "5"){
-    int studentID;
+    string studentID;
     cout << "Please enter student ID: ";
     cin >> studentID;
-    display.printAdvisor(studentID);
+    s.printAdvisor(studentID);
   }else if(choice == "6"){
-    int facultyID;
+    string facultyID;
     cout << "Please enter faculty ID: ";
     cin >> facultyID;
-    display.printAdvisees(facultyID);
+    //s.printAdvisees(facultyID);
   }else if(choice == "7"){
-    addOrDelete.addStudent();
+    s.addStudent();
   }else if(choice == "8"){
-    int deleteStu;
+    string deleteStu;
     cout << "Enter the ID of the student you would like to delete: ";
     cin >> deleteStu;
-    addOrDelete.deleteStudent(deleteStu);
+    //s.deleteStudent(deleteStu);
   }else if(choice == "9"){
-    addOrDelete.addFaculty();
+    s.addFaculty();
   }else if(choice == "10"){
-    int deleteFacMem;
+    string deleteFacMem;
     cout << "Enter the ID of the faculty member you would like to delete: ";
     cin >> deleteFacMem;
-    addOrDelete.deleteFaculty(deleteFacMem);
+    //s.deleteFaculty(deleteFacMem);
   }else if(choice == "11"){
-    int studentID;
+    string studentID;
     cout << "Enter the ID of the student whose advisor you'd like to change: ";
     cin >> studentID;
-    int newAdvisor;
+    string newAdvisor;
     cout << "Enter the ID of the faculty member that will be their new advisor: ";
     cin >> newAdvisor;
-    edit.changeAdvisor(studentID, newAdvisor);
+    //s.changeAdvisor(studentID, newAdvisor);
   }else if(choice == "12"){
-    int advisor;
+    string advisor;
     cout << "Enter the ID of the faculty member that you would like to remove an advisee from: ";
     cin >> advisor;
-    int advisee;
+    string advisee;
     cout << "Enter the ID of the student/advisee you would like to remove: ";
     cin >> advisee;
-    edit.removeAdvisee(advisor, advisee);
+    //s.removeAdvisee(advisor, advisee);
   }else if(choice == "13"){
-    rollback.Rollback();
+    //rollback.Rollback();
     //not implemented at all yet
   }else if(choice == "14"){
-    exit.Exit();
+    //exit.Exit();
     //not implemented at all yet
   }else{
     cout << "Sorry, the number you have entered does not seem to be a valid option. Please review the menu options and make a new selection." << endl;
   }
 
-  if(choice != "14"){
+  if(choice == "0"){
+    cout << "done!" << endl;
+  }else if(choice != "14"){
     displayOptions();
   }
+}
+
+
+
+
+void Menu::beginSimulation(){
+  s.CreateInitialBSTs();
+  displayOptions();
 }

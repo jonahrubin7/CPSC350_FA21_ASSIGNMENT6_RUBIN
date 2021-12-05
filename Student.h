@@ -16,6 +16,7 @@ public:
   int getAdvisor();
   string getMajor();
   int getID();
+  void print();
 
 
 private:

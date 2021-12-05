@@ -43,3 +43,12 @@ string Student::getMajor(){
 int Student::getAdvisor(){
   return m_advisor;
 }
+
+void Student::print(){
+  cout << "Student ID: " << m_ID << endl;
+  cout << "Name: " << m_name << endl;
+  cout << "Grade: " << m_level << endl;
+  cout << "Major: " << m_major << endl;
+  cout << "GPA: " << m_GPA << endl;
+  cout << "Advisor: " << m_advisor << endl;
+}

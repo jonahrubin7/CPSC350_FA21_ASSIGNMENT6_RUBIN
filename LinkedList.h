@@ -107,7 +107,7 @@ T DoublyLinkedList<T>::accessAtPos(int pos){
     curr = curr->next;
   }
   if(curr == NULL){
-    return NULL;
+    return 0;
   }
 }
 

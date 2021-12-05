@@ -25,3 +25,15 @@ Faculty::~Faculty(){
 int Faculty::getID(){
   return m_ID;
 }
+
+void Faculty::print(){
+  cout << "Faculty ID: " << m_ID << endl;
+  cout << "Name: " << m_name << endl;
+  cout << "Level: " << m_level << endl;
+  cout << "Department: " << m_department << endl;
+  cout << "Advisees: ";
+  for(int i = 0; i <= m_advisees->getSize(); ++i){
+    cout << m_advisees->accessAtPos(i);
+  }
+  cout << " " << endl;
+}

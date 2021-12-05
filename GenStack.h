@@ -40,7 +40,7 @@ void GenStack<T>::push(T data){ //add something to the stack
 
 
 template <class T>
-T GenStack<T>::peek(){ /// peek method 
+T GenStack<T>::peek(){ /// peek method
   if(isEmpty()){
     throw runtime_error("stack is empty");
   }
