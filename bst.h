@@ -75,8 +75,9 @@ void BST<T>::recPrint(TreeNode<T> *node){
     if(node == NULL){
       return;
     }
-  cout << node->key << endl;
+  //cout << node->key << endl;
   recPrint(node->left);
+  cout << node->key << endl;
   recPrint(node->right);
 }
 
@@ -129,7 +130,7 @@ void BST<T>::insert(int key, T value){
     while(true){
       parent = current;
 
-      if(key < current->key){
+      if(node->key < current->key){
         current = current->left;
         if(current == NULL){
           //found insertion point
