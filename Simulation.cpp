@@ -254,7 +254,12 @@ void Simulation::addStudent(){
   id = student.getID();
   masterStudent->insert(id, student);
 
-  printBSTs();
+  cout << "\nThe student you have entered has been inserted into the database.\n";
+
+  int advisorID = student.getAdvisor();
+  Faculty advisor = masterFaculty->find(advisorID);
+  advisor.addToAdvisees(id);
+  //printBSTs();
 }
 
 //9

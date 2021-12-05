@@ -45,3 +45,7 @@ void Faculty::print(){
 DoublyLinkedList<int>* Faculty::getAdvisees(){
   return m_advisees;
 }
+
+void Faculty::addToAdvisees(int idNum){
+  m_advisees->insertBack(idNum);
+}
