@@ -6,6 +6,7 @@ Person::Person(){
   m_name = "";
   m_level = "";
   m_call = "";
+  m_isFaculty = false;
 }
 
 Person::Person(int id, string name, string level){
@@ -30,10 +31,14 @@ string Person::getLevel(){
   return m_level;
 }
 
-// string Person::getCall(){
-//   return m_call;
-// }
-// 
-// void Person::setCall(string call){
-//   m_call = call;
-// }
+string Person::getCall(){
+  return m_call;
+}
+
+void Person::setCall(string call){
+  m_call = call;
+}
+
+bool Person::isFaculty(){
+  return m_isFaculty;
+}

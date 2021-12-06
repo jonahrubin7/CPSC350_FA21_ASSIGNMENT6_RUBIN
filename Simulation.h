@@ -43,6 +43,7 @@ class Simulation{
     void deleteStudent(string id);
     void addFaculty();
     void deleteFaculty(string id);
+    void rollback();
 
     //Edit functions
     //void changeAdvisor(string studentID, string newAdvisor);
@@ -81,6 +82,8 @@ class Simulation{
 
     BST<Student>* masterStudent;
     BST<Faculty>* masterFaculty;
+
+    GenStack<Person> *stack;
     //Menu m;
 };
 #endif

@@ -15,8 +15,9 @@ public:
   int getID();
   string getName();
   string getLevel();
-  //string getCall();
-  //void setCall();
+  string getCall();
+  void setCall(string call);
+  bool isFaculty();
 
 
 private:

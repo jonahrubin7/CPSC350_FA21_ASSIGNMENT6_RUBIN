@@ -6,6 +6,7 @@ Simulation::Simulation(){
   masterFaculty = new BST<Faculty>();
   facultyIDs = new DoublyLinkedList<int>;
   studentIDs = new DoublyLinkedList<int>;
+  stack = new GenStack<Person>();
 } //empty constructor
 
 Simulation::~Simulation(){} //empty destructor
@@ -256,7 +257,8 @@ void Simulation::addStudent(){
 
   //create student
   Student student = createStudent(studentStringID, name, level, major, gpa, advisor);
-
+  student.setCall("Delete");
+  stack->push(student);
   id = student.getID();
   masterStudent->insert(id, student);
   studentIDs->insertBack(id);
@@ -273,6 +275,8 @@ void Simulation::addStudent(){
 void Simulation::deleteStudent(string id){
   int intID = stringToInt(id);
   Student deleteS = masterStudent->find(intID);
+  deleteS.setCall("Insert");
+  stack->push(deleteS);
   int advisorID = deleteS.getAdvisor();
   masterStudent->deleteNode(intID);
   Faculty advisor = masterFaculty->find(advisorID);
@@ -296,6 +300,8 @@ void Simulation::addFaculty(){
 
   Faculty f = createFaculty(facultyStringID, name, level, department, advisees, true);
   ++numFacultyMembers;
+  f.setCall("Delete");
+  stack->push(f);
   //Faculty f = Faculty(facultyID, facultyName, level, department, addAdvisees);
   id = f.getID();
   //cout << f.getID() << endl;
@@ -314,6 +320,8 @@ void Simulation::deleteFaculty(string id){
 
   int intID = stringToInt(id);
   Faculty deleteF = masterFaculty->find(intID);
+  deleteF.setCall("Insert");
+  stack->push(deleteF);
   adviseeIDs = deleteF.getAdvisees();
   //linked list of id nmbers, deleted faculty is removed
   facultyIDs->removeNode(intID);
@@ -334,4 +342,28 @@ void Simulation::deleteFaculty(string id){
 
   cout << "\nThe faculty member has been deleted and their advisees have been randomly reassigned to new advisors\n";
 
+}
+
+
+void Simulation::rollback(){
+  p = stack->pop();
+  id = p.getID()
+  stringstream ss;
+  ss<<id;
+  int i;
+  ss>>i;
+  if(p.getCall() == "Insert"){
+    if(p.isFaculty() == true){
+      masterFaculty->insert(i, p);
+    }else{
+      masterStudent->insert(i, p);
+    }
+  }
+  else if(p.getCall() == "Delete"){
+    if(p.isFaculty() == true){
+      deleteFaculty(i);
+    }else{
+      deleteStudent(i);
+    }
+  }
 }
