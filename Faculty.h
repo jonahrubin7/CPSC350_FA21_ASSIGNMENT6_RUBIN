@@ -17,6 +17,7 @@ public:
   void print();
   void addToAdvisees(int idNum);
   void removeAdvisee(int idNum);
+  bool checkForAdvisee(int advisee);
 
 
 private:

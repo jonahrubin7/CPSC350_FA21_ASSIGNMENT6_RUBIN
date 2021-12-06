@@ -78,7 +78,7 @@ void Menu::chooseCommand(){
     string newAdvisor;
     cout << "Enter the ID of the faculty member that will be their new advisor: ";
     cin >> newAdvisor;
-    //s.changeAdvisor(studentID, newAdvisor);
+    s.changeAdvisor(studentID, newAdvisor, true);
   }else if(choice == "12"){
     string advisor;
     cout << "Enter the ID of the faculty member that you would like to remove an advisee from: ";
@@ -86,7 +86,7 @@ void Menu::chooseCommand(){
     string advisee;
     cout << "Enter the ID of the student/advisee you would like to remove: ";
     cin >> advisee;
-    //s.removeAdvisee(advisor, advisee);
+    s.removeAdvisee(advisor, advisee);
   }else if(choice == "13"){
     //rollback.Rollback();
     //not implemented at all yet

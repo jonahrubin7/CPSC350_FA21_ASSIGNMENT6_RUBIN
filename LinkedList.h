@@ -48,7 +48,7 @@ public:
   T removeFront();
   T removeBack();
   T removeNode(T value);
-  T find(T value);
+  int find(T value);
   bool isEmpty();
   int getSize();
   T getFront();
@@ -166,12 +166,12 @@ T DoublyLinkedList<T>::removeBack(){ //removes back node
 }
 
 template <class T>
-T DoublyLinkedList<T>::find(T value){ //finds a specific value in the list.
+int DoublyLinkedList<T>::find(T value){ //finds a specific value in the list.
   int position = -1;
   ListNode<T> *curr = front;
   while(curr != NULL){
     ++position;
-    if(curr ->data == value){
+    if(curr->data == value){
       break;
     }
     curr = curr->next;
@@ -179,6 +179,7 @@ T DoublyLinkedList<T>::find(T value){ //finds a specific value in the list.
   if(curr == NULL){
     position = -1;
   }
+  return position;
 }
 
 template <class T>
@@ -186,6 +187,7 @@ T DoublyLinkedList<T>::removeNode(T value){ //remove specific node method
   if(isEmpty()){
     throw runtime_error("list is empty");
   }
+
   ListNode<T> *curr = front;
   while(curr->data != value){
     curr = curr -> next;
@@ -201,8 +203,10 @@ T DoublyLinkedList<T>::removeNode(T value){ //remove specific node method
 
   if(curr == front){
     front = curr->next;
+    //THIS NEXT LINE DOESNT WORK
     front -> prev = NULL;
   }
+
   if(curr == back){
     back = curr ->prev;
     back -> next = NULL;

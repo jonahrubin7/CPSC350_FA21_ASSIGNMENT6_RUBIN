@@ -26,7 +26,7 @@ private:
   string m_name;
   string m_level;
   string m_call;
-
+  bool m_isFaculty;
 
   //compare (greater than or less than) ???
 };

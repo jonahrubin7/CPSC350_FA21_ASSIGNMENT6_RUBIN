@@ -51,5 +51,15 @@ void Faculty::addToAdvisees(int idNum){
 }
 
 void Faculty::removeAdvisee(int idNum){
+  //cout << "works 2.5 \n";
   m_advisees->removeNode(idNum);
+}
+
+bool Faculty::checkForAdvisee(int advisee){
+  //if advisee is in the list
+  if(m_advisees->find(advisee) == -1){
+    return false;
+  }else{
+    return true;
+  }
 }
