@@ -44,6 +44,14 @@ int Student::getAdvisor(){
   return m_advisor;
 }
 
+string Student::getName(){
+  return m_name;
+}
+
+string Student::getLevel(){
+  return m_level;
+}
+
 void Student::print(){
   cout << "Student ID: " << m_ID << endl;
   cout << "Name: " << m_name << endl;

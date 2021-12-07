@@ -12,6 +12,7 @@ using namespace std;
 #include "bst.h"
 #include "Student.h"
 #include "Faculty.h"
+#include "GenStack.h"
 
 
 //using namespace std;
@@ -43,6 +44,10 @@ class Simulation{
     void deleteStudent(string id);
     void addFaculty();
     void deleteFaculty(string id);
+    void rollback();
+    string treeToStringStudent(TreeNode<Student>* root);
+    string treeToStringFaculty(TreeNode<Faculty>* root);
+    void exitSim();
     //void rollback();
 
     //Edit functions
@@ -72,6 +77,7 @@ class Simulation{
     string department;
     int advisee;
 
+
     DoublyLinkedList<int> *adviseeIDs;
 
     DoublyLinkedList<int> *facultyIDs;
@@ -83,7 +89,7 @@ class Simulation{
     BST<Student>* masterStudent;
     BST<Faculty>* masterFaculty;
 
-    //GenStack<Person> *stack;
+    GenStack<Person> *stack;
     //Menu m;
 };
 #endif

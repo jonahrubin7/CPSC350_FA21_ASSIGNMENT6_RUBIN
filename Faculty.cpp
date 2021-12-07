@@ -27,6 +27,34 @@ int Faculty::getID(){
   return m_ID;
 }
 
+string Faculty::getName(){
+  return m_name;
+}
+
+string Faculty::getLevel(){
+  return m_level;
+}
+string Faculty::getDepartment(){
+  return m_department;
+}
+
+string Faculty::advisees(){
+  string advs = "";
+  ListNode<int>* currNode = m_advisees->getFrontNode();
+  while(currNode != NULL){
+    advs += to_string(currNode->getValue());
+    if(currNode->next == NULL){
+      break;
+    }else{
+      advs += ",";
+      currNode = currNode->next;
+    }
+  }
+  //iterate through linked list and add each value to a string
+  //
+  return advs;
+}
+
 void Faculty::print(){
   cout << "Faculty ID: " << m_ID << endl;
   cout << "Name: " << m_name << endl;

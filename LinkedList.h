@@ -11,6 +11,7 @@ public:
   ListNode();
   ListNode(T d);
   ~ListNode();
+  T getValue();
   ListNode *next;
   ListNode *prev;
   T data;
@@ -33,6 +34,11 @@ ListNode<T>::~ListNode(){ //destructor
 }
 
 template <class T>
+T ListNode<T>::getValue(){
+  return data;
+}
+
+template <class T>
 class DoublyLinkedList{ //linked list class
 private:
   ListNode<T> *front;
@@ -52,6 +58,7 @@ public:
   bool isEmpty();
   int getSize();
   T getFront();
+  ListNode<T>* getFrontNode();
 };
 
 template <class T>
@@ -184,46 +191,99 @@ int DoublyLinkedList<T>::find(T value){ //finds a specific value in the list.
 
 template <class T>
 T DoublyLinkedList<T>::removeNode(T value){ //remove specific node method
-  if(isEmpty()){
-    throw runtime_error("list is empty");
-  }
-
+  // if(isEmpty()){
+  //   throw runtime_error("list is empty");
+  // }
+  //
+  // ListNode<T> *curr = front;
+  // cout << "before" << endl;
+  // cout << curr->data << endl;
+  // cout << value << endl;
+  // while(curr->data != value){
+  //   cout << "1" << endl;
+  //   curr = curr -> next;
+  //   cout << "2" << endl;
+  //   if(curr == NULL){
+  //     return -1;
+  //   }
+  //   cout << "in" << endl;
+  // }
+  // cout << "Out of loop" << endl;
+  // if(curr != front && curr != back){
+  //   cout << "In 1" << endl;
+  //   curr->prev->next = curr->next;
+  //   curr->next->prev = curr->prev;
+  // }
+  //
+  // cout << "out 1" << endl;
+  // if(curr == front){
+  //   cout << front->data << endl;
+  //   cout << "in 2" << endl;
+  //   front = curr->next;
+  //   cout << "check 3" << endl;
+  //   cout << front->data << endl;
+  //   cout << "check 4" << endl;
+  //   //THIS NEXT LINE DOESNT WORK
+  //   front->prev = NULL;
+  //   cout << "check 5" << endl;
+  //   cout << front->data << endl;
+  // }
+  //
+  // cout << "out 2" << endl;
+  // if(curr == back){
+  //   cout << "in 3" << endl;
+  //   back = curr ->prev;
+  //   back->next = NULL;
+  // }
+  //
+  // cout << "out 3" << endl;
+  // curr->next = NULL;
+  // curr->prev = NULL;
+  // T data = curr->data;
+  // --size;
+  // delete curr;
+  // return data;
+  //
   ListNode<T> *curr = front;
-  while(curr->data != value){
-    curr = curr -> next;
 
-    if(curr == NULL){
-      return -1;
-    }
-  }
-  if(curr != front && curr != back){
-    curr->prev->next = curr->next;
-    curr->next->prev = curr->prev;
-  }
+while(curr->data != value){
+  curr = curr->next;
 
-  if(curr == front){
-    front = curr->next;
-    //THIS NEXT LINE DOESNT WORK
-    front -> prev = NULL;
+  if(curr == NULL){
+    return 0;
   }
+}
 
-  if(curr == back){
-    back = curr ->prev;
-    back -> next = NULL;
-  }
+if(curr == front){
+  front = curr->next;
+}else{
+  curr->prev->next = curr->next;
+}
 
-  curr->next = NULL;
-  curr->prev = NULL;
-  T data = curr->data;
-  --size;
-  delete curr;
-  return data;
+if(curr == back){
+  back = curr->prev;
+}else{
+  curr->next->prev = curr->prev;
+}
+
+curr->next = NULL;
+curr->prev = NULL;
+T temp = curr->data;
+size--;
+delete curr;
+
+return temp;
 }
 
 template <class T>
 T DoublyLinkedList<T>::getFront(){
   T temp = front->data;
   return temp;
+}
+
+template <class T>
+ListNode<T>* DoublyLinkedList<T>::getFrontNode(){
+  return front;
 }
 
 #endif

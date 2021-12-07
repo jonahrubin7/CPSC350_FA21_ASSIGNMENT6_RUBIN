@@ -88,11 +88,9 @@ void Menu::chooseCommand(){
     cin >> advisee;
     s.removeAdvisee(advisor, advisee);
   }else if(choice == "13"){
-    //rollback.Rollback();
-    //not implemented at all yet
+    s.rollback();
   }else if(choice == "14"){
-    //exit.Exit();
-    //not implemented at all yet
+    s.exitSim();
   }else{
     cout << "Sorry, the number you have entered does not seem to be a valid option. Please review the menu options and make a new selection." << endl;
   }

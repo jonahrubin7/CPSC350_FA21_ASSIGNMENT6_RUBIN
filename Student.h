@@ -17,6 +17,8 @@ public:
   string getMajor();
   int getID();
   void print();
+  string getName();
+  string getLevel();
 
 
 private:

@@ -55,6 +55,7 @@ public:
   TreeNode<T> *getSuccessor(TreeNode<T> *d); //node we will delete
   void printNode();
   void recPrint(TreeNode<T> *node);
+  TreeNode<T> *getRoot();
 private:
   TreeNode<T> *root;
 };
@@ -308,6 +309,12 @@ T BST<T>::find(int key){
 //   }
   //return node->key + //more?
 // }
+//
+//
+template <class T>
+TreeNode<T>* BST<T>::getRoot(){
+  return root;
+}
 
 
 #endif

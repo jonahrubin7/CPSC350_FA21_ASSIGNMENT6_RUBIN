@@ -13,11 +13,16 @@ public:
   Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees);
   ~Faculty();
   int getID();
+  string getName();
+  string getLevel();
+  string getDepartment();
+  string advisees();
   DoublyLinkedList<int>* getAdvisees();
   void print();
   void addToAdvisees(int idNum);
   void removeAdvisee(int idNum);
   bool checkForAdvisee(int advisee);
+
 
 
 private:

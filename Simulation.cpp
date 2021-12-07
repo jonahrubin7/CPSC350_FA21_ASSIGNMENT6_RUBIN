@@ -9,7 +9,14 @@ Simulation::Simulation(){
   //stack = new GenStack<Person>();
 } //empty constructor
 
-Simulation::~Simulation(){} //empty destructor
+Simulation::~Simulation(){
+  delete adviseeIDs;
+  delete facultyIDs;
+  delete studentIDs;
+  delete masterStudent;
+  delete masterFaculty;
+  delete stack;
+} //empty destructor
 
 void Simulation::CreateInitialBSTs(){
   studentStringID = "";
@@ -461,25 +468,85 @@ void Simulation::removeAdvisee(string advisor, string advisee){
 
 
 
-// void Simulation::rollback(){
-//   p = stack->pop();
-//   id = p.getID()
-//   stringstream ss;
-//   ss<<id;
-//   int i;
-//   ss>>i;
-//   if(p.getCall() == "Insert"){
-//     if(p.isFaculty() == true){
-//       masterFaculty->insert(i, p);
-//     }else{
-//       masterStudent->insert(i, p);
-//     }
-//   }
-//   else if(p.getCall() == "Delete"){
-//     if(p.isFaculty() == true){
-//       deleteFaculty(i);
-//     }else{
-//       deleteStudent(i);
-//     }
-//   }
-// }
+void Simulation::rollback(){
+  Person p = stack->pop();
+  id = p.getID();
+  if(p.getCall() == "Insert"){
+    if(p.isFaculty() == true){
+      Faculty &f = static_cast<Faculty&>(p);
+
+      DoublyLinkedList<int> *advisees = f.getAdvisees();
+      for(int i = 0; i < advisees->getSize(); i++){
+        int currStudentID = advisees->accessAtPos(i);
+        Student currStudent = masterStudent->find(currStudentID);
+        int newFacultyID = currStudent.getAdvisor();
+        currStudent.setAdvisor(id);
+        Faculty newFaculty = masterFaculty->find(newFacultyID);
+        newFaculty.removeAdvisee(currStudentID);
+      }
+
+      masterFaculty->insert(id, f);
+    }else{
+      Student &s = static_cast<Student&>(p);
+
+      int facultyID = s.getAdvisor();
+      Faculty faculty = masterFaculty->find(facultyID);
+      faculty.addToAdvisees(s.getID());
+
+      masterStudent->insert(id, s);
+    }
+  }
+  else if(p.getCall() == "Delete"){
+    string i;
+    i = to_string(id);
+    if(p.isFaculty() == true){
+      deleteFaculty(i);
+    }else{
+      deleteStudent(i);
+    }
+  }
+}
+
+string Simulation::treeToStringStudent(TreeNode<Student>* root){
+  string infoString = "";
+  if(root == NULL){
+    return "";
+  }
+
+  Student s = root -> value;
+  infoString = to_string(s.getID()) + "," + s.getName() + "," + s.getLevel() + "," + to_string(s.getGPA()) + "," + to_string(s.getAdvisor());
+  infoString += "\n";
+  string leftInfoString = treeToStringStudent(root->left);
+  string rightInfoString = treeToStringStudent(root->right);
+  return (infoString + leftInfoString + rightInfoString);
+}
+
+
+string Simulation::treeToStringFaculty(TreeNode<Faculty>* root){
+  string infoString = "";
+  if(root == NULL){
+    return "";
+  }
+  Faculty f = root -> value;
+  infoString = to_string(f.getID()) + "," + f.getName() + "," + f.getLevel() + "," + f.getDepartment() + "," + f.advisees();
+  infoString += "\n";
+  string leftInfoString = treeToStringFaculty(root->left);
+  string rightInfoString = treeToStringFaculty(root->right);
+  return (infoString + leftInfoString + rightInfoString);
+}
+
+void Simulation::exitSim(){
+  ofstream outFS;
+  outFS.open("studentTable2");
+  TreeNode<Student>* rootStudent = masterStudent->getRoot();
+  outFS << treeToStringStudent(rootStudent);
+  outFS << "END OF FILE";
+  outFS.close();
+
+  outFS.open("facultyTable2");
+  TreeNode<Faculty>*rootFaculty = masterFaculty->getRoot();
+  outFS << treeToStringFaculty(rootFaculty);
+  outFS << "END OF FILE";
+  outFS.close();
+  exit(0);
+}
