@@ -6,7 +6,8 @@ Simulation::Simulation(){
   masterFaculty = new BST<Faculty>();
   facultyIDs = new DoublyLinkedList<int>;
   studentIDs = new DoublyLinkedList<int>;
-  //stack = new GenStack<Person>();
+  stack = new GenStack<Person>();
+  topFourStack = new GenStack<Person>();
 } //empty constructor
 
 Simulation::~Simulation(){
@@ -108,7 +109,7 @@ int Simulation::stringToInt(string id){
 }
 
 double Simulation::gpaStringToDouble(string gpa){
-  //this one doesnt work rn for past the decimal points
+  //this works for converting GPA
   double returnGPA = 0;
   double currNum = 0;
   int count = 0;
@@ -116,6 +117,11 @@ double Simulation::gpaStringToDouble(string gpa){
   for(int n = 0; n < gpa.size(); ++n){
     if(n == 0){
       returnGPA = (double(gpa[n]) - '0');
+    }else if(n == 1){
+      if(gpa[1] != '.'){
+        //this is so that when an incorrect GPA is entered the error message occurs in createStudent
+        returnGPA += 10;
+      }
     }else if(n > 1){
       currNum = (double(gpa[n]) - '0');
       ++count;
@@ -139,7 +145,20 @@ void Simulation::printBSTs(){
 
 Student Simulation::createStudent(string studentStringID, string name, string level, string major, string gpa, string advisor){
   studentID = stringToInt(studentStringID);
+  //this checks to see if the ID already exists for a student
+  while(studentIDs->find(studentID) != -1){
+    cout << "Sorry, the ID you have entered already belongs to a student in the system. Please enter a new ID. \n";
+    cout << "New ID:" << endl;
+    cin >> studentStringID;
+    studentID = stringToInt(studentStringID);
+  }
   sGPA = gpaStringToDouble(gpa);
+  while(sGPA < 1.0 || sGPA > 5.0){
+    cout << "Oops, the GPA you have entered seems to be invalid. Please re-enter the correct GPA." << endl;
+    cout << "New GPA: ";
+    cin >> gpa;
+    sGPA = gpaStringToDouble(gpa);
+  }
   intAdvisor = stringToInt(advisor);
 
   Student newStudent = Student(studentID, name, level, major, sGPA, intAdvisor);
@@ -148,7 +167,14 @@ Student Simulation::createStudent(string studentStringID, string name, string le
 
 Faculty Simulation::createFaculty(string facultyStringID, string name, string level, string department, string advisees, bool added){
   facultyID = stringToInt(facultyStringID);
-  //not sure if the advisee list is working 100%
+
+  while(facultyIDs->find(facultyID) != -1){
+    cout << "Sorry, the ID you have entered already belongs to a faculty member in the system. Please enter a new ID. \n";
+    cout << "New ID:" << endl;
+    cin >> facultyStringID;
+    facultyID = stringToInt(facultyStringID);
+  }
+
   string currAdvisee = "";
   adviseeIDs = new DoublyLinkedList<int>();
   for(int i = 0; i < advisees.size(); ++i){
@@ -177,8 +203,6 @@ Faculty Simulation::createFaculty(string facultyStringID, string name, string le
 
 //1
 void Simulation::printStudents(){
-  //this one needs to print them IN ORDER
-  //currently not in order
   masterStudent->printNode();
 }
 
@@ -289,11 +313,12 @@ void Simulation::addStudent(){
 
   //student is created
   Student student = createStudent(studentStringID, name, level, major, gpa, advisor);
+
   student.setCall("Delete");
-  //stack->push(student);
+  stack->push(student);
 
   //student inserted into the bst
-  id = student.getID();
+  int id = student.getID();
   masterStudent->insert(id, student);
   //student ID number inserted into the linked list of student IDs
   studentIDs->insertBack(id);
@@ -309,18 +334,22 @@ void Simulation::addStudent(){
 }
 
 //8
-void Simulation::deleteStudent(string id){
+void Simulation::deleteStudent(string id, bool rollback){
   int intID = stringToInt(id);
   if(studentIDs->find(intID) != -1){
     Student deleteS = masterStudent->find(intID);
-    deleteS.setCall("Insert");
-    //stack->push(deleteS);
+    if(rollback == false){
+      deleteS.setCall("Insert");
+      stack->push(deleteS);
+    }
     int advisorID = deleteS.getAdvisor();
     //student is deleted from bst
     masterStudent->deleteNode(intID);
-    Faculty advisor = masterFaculty->find(advisorID);
-    //student is removed from advisors advisee list
-    advisor.removeAdvisee(intID);
+    if(advisorID != 0){
+      Faculty advisor = masterFaculty->find(advisorID);
+      //student is removed from advisors advisee list
+      advisor.removeAdvisee(intID);
+    }
     //student ID removed from list of student IDs
     studentIDs->removeNode(intID);
     cout << "\nThe student has been deleted from the database.\n";
@@ -379,17 +408,20 @@ void Simulation::addFaculty(){
   }
 
   f.setCall("Delete");
-  //stack->push(f);
+  stack->push(f);
+
 }
 
 //10
-void Simulation::deleteFaculty(string id){
+void Simulation::deleteFaculty(string id, bool rollback){
 
   int intID = stringToInt(id);
   if(facultyIDs->find(intID) != -1){
     Faculty deleteF = masterFaculty->find(intID);
-    deleteF.setCall("Insert");
-    //stack->push(deleteF);
+    if(rollback == false){
+      deleteF.setCall("Insert");
+      stack->push(deleteF);
+    }
     adviseeIDs = deleteF.getAdvisees();
     //linked list of id nmbers, deleted faculty is removed
     facultyIDs->removeNode(intID);
@@ -424,13 +456,15 @@ void Simulation::changeAdvisor(string studentID, string newAdvisor, bool newA){
       cout << "Sorry, the advisor ID you have entered does not exist in the system. Your current request will be terminated. Please try again with a valid advisor ID." << endl;
     }else{
       Student changeAdv = masterStudent->find(sID);
-      Faculty oldAdvisor = masterFaculty->find(changeAdv.getAdvisor());
+      if(changeAdv.getAdvisor() != 0){
+        Faculty oldAdvisor = masterFaculty->find(changeAdv.getAdvisor());
+        oldAdvisor.removeAdvisee(sID);
+      }
       Faculty newAdvisor = masterFaculty->find(aID);
       changeAdv.setAdvisor(aID);
       masterStudent->deleteNode(sID);
       masterStudent->insert(sID, changeAdv);
 
-      oldAdvisor.removeAdvisee(sID);
       //The new A boolean is for when option 11 is actually being called
       //This way these last two things dont happen when this function is being called from addFaculty
       if(newA){
@@ -469,41 +503,66 @@ void Simulation::removeAdvisee(string advisor, string advisee){
 
 
 void Simulation::rollback(){
-  Person p = stack->pop();
-  id = p.getID();
-  if(p.getCall() == "Insert"){
-    if(p.isFaculty() == true){
-      Faculty &f = static_cast<Faculty&>(p);
+  //if(stack->getSize() == 5){
 
-      DoublyLinkedList<int> *advisees = f.getAdvisees();
-      for(int i = 0; i < advisees->getSize(); i++){
-        int currStudentID = advisees->accessAtPos(i);
-        Student currStudent = masterStudent->find(currStudentID);
-        int newFacultyID = currStudent.getAdvisor();
-        currStudent.setAdvisor(id);
-        Faculty newFaculty = masterFaculty->find(newFacultyID);
-        newFaculty.removeAdvisee(currStudentID);
+  //}
+
+
+  if(stack->getSize() > 0){
+    Person p = stack->pop();
+
+    //id = p.getID();
+    if(p.getCall() == "Insert"){
+      if(p.isFaculty() == true){
+        Faculty &f = static_cast<Faculty&>(p);
+
+        id = f.getID();
+
+        cout << "this is the id of the faculty being inserted " << id << endl;
+        DoublyLinkedList<int> *advisees = f.getAdvisees();
+        for(int i = 0; i < advisees->getSize(); i++){
+          int currStudentID = advisees->accessAtPos(i);
+          Student currStudent = masterStudent->find(currStudentID);
+          int newFacultyID = currStudent.getAdvisor();
+          currStudent.setAdvisor(id);
+          Faculty newFaculty = masterFaculty->find(newFacultyID);
+          newFaculty.removeAdvisee(currStudentID);
+        }
+
+        masterFaculty->insert(id, f);
+      }else{
+        Student &s = static_cast<Student&>(p);
+
+        id = s.getID();
+        cout << "this is the id of the student being inserted " << id << endl;
+        int facultyID = s.getAdvisor();
+        Faculty faculty = masterFaculty->find(facultyID);
+        faculty.addToAdvisees(s.getID());
+
+        masterStudent->insert(id, s);
       }
-
-      masterFaculty->insert(id, f);
-    }else{
-      Student &s = static_cast<Student&>(p);
-
-      int facultyID = s.getAdvisor();
-      Faculty faculty = masterFaculty->find(facultyID);
-      faculty.addToAdvisees(s.getID());
-
-      masterStudent->insert(id, s);
     }
-  }
-  else if(p.getCall() == "Delete"){
-    string i;
-    i = to_string(id);
-    if(p.isFaculty() == true){
-      deleteFaculty(i);
-    }else{
-      deleteStudent(i);
+    else if(p.getCall() == "Delete"){
+      string i;
+      if(p.isFaculty() == true){
+        Faculty &f = static_cast<Faculty&>(p);
+        id = f.getID();
+
+        i = to_string(id);
+        cout << "this is the id of the faculty being removed " << id << endl;
+
+        deleteFaculty(i, true);
+      }else{
+        Student &s = static_cast<Student&>(p);
+
+        id = s.getID();
+        i = to_string(id);
+        cout << "this is the id of the student being removed " << id << endl;
+        deleteStudent(i, true);
+      }
     }
+  }else{
+    cout << "Sorry, there are currently no more available rollbacks." << endl;
   }
 }
 

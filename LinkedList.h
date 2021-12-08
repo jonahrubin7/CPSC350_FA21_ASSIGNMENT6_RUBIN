@@ -191,88 +191,36 @@ int DoublyLinkedList<T>::find(T value){ //finds a specific value in the list.
 
 template <class T>
 T DoublyLinkedList<T>::removeNode(T value){ //remove specific node method
-  // if(isEmpty()){
-  //   throw runtime_error("list is empty");
-  // }
-  //
-  // ListNode<T> *curr = front;
-  // cout << "before" << endl;
-  // cout << curr->data << endl;
-  // cout << value << endl;
-  // while(curr->data != value){
-  //   cout << "1" << endl;
-  //   curr = curr -> next;
-  //   cout << "2" << endl;
-  //   if(curr == NULL){
-  //     return -1;
-  //   }
-  //   cout << "in" << endl;
-  // }
-  // cout << "Out of loop" << endl;
-  // if(curr != front && curr != back){
-  //   cout << "In 1" << endl;
-  //   curr->prev->next = curr->next;
-  //   curr->next->prev = curr->prev;
-  // }
-  //
-  // cout << "out 1" << endl;
-  // if(curr == front){
-  //   cout << front->data << endl;
-  //   cout << "in 2" << endl;
-  //   front = curr->next;
-  //   cout << "check 3" << endl;
-  //   cout << front->data << endl;
-  //   cout << "check 4" << endl;
-  //   //THIS NEXT LINE DOESNT WORK
-  //   front->prev = NULL;
-  //   cout << "check 5" << endl;
-  //   cout << front->data << endl;
-  // }
-  //
-  // cout << "out 2" << endl;
-  // if(curr == back){
-  //   cout << "in 3" << endl;
-  //   back = curr ->prev;
-  //   back->next = NULL;
-  // }
-  //
-  // cout << "out 3" << endl;
-  // curr->next = NULL;
-  // curr->prev = NULL;
-  // T data = curr->data;
-  // --size;
-  // delete curr;
-  // return data;
-  //
+
   ListNode<T> *curr = front;
 
-while(curr->data != value){
-  curr = curr->next;
+  while(curr->data != value){
+    curr = curr->next;
 
-  if(curr == NULL){
-    return 0;
+    if(curr == NULL){
+      return 0;
+    }
   }
-}
 
-if(curr == front){
-  front = curr->next;
-}else{
-  curr->prev->next = curr->next;
-}
+  if(curr == front){
+    front = curr->next;
+  }else{
+    curr->prev->next = curr->next;
+  }
 
-if(curr == back){
-  back = curr->prev;
-}else{
-  curr->next->prev = curr->prev;
-}
+  if(curr == back){
+    back = curr->prev;
+  }else{
+    curr->next->prev = curr->prev;
+  }
 
-curr->next = NULL;
-curr->prev = NULL;
-T temp = curr->data;
-size--;
-delete curr;
+  curr->next = NULL;
+  curr->prev = NULL;
+  T temp = curr->data;
+  size--;
+  delete curr;
 
-return temp;
+  return temp;
 }
 
 template <class T>

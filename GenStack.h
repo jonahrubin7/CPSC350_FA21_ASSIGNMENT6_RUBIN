@@ -50,9 +50,10 @@ T GenStack<T>::peek(){ /// peek method
 template <class T>
 T GenStack<T>::pop(){ //remove and return top of stack
   if(isEmpty()){
-    throw runtime_error("stack is empty");
+    cout << "Sorry, rollback not available. You may only rollback up to 5 times. You have exceeded this number or have undone all possible changes made and have no more rollbacks available at this time." << endl;
+  }else{
+    return link->removeBack();
   }
-  return link->removeBack();
 }
 
 template <class T>

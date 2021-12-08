@@ -41,9 +41,9 @@ class Simulation{
 
     //Add or delete options
     void addStudent();
-    void deleteStudent(string id);
+    void deleteStudent(string id, bool rollback);
     void addFaculty();
-    void deleteFaculty(string id);
+    void deleteFaculty(string id, bool rollback);
     void rollback();
     string treeToStringStudent(TreeNode<Student>* root);
     string treeToStringFaculty(TreeNode<Faculty>* root);
@@ -90,6 +90,7 @@ class Simulation{
     BST<Faculty>* masterFaculty;
 
     GenStack<Person> *stack;
+    GenStack<Person> *topFourStack;
     //Menu m;
 };
 #endif
