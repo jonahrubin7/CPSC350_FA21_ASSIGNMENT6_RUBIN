@@ -19,6 +19,7 @@ public:
   void print();
   string getName();
   string getLevel();
+  bool compareStudent(Student s1, Student s2);
 
 
 private:
