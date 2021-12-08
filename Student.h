@@ -8,7 +8,7 @@ using namespace std;
 class Student : public Person{
 public:
   Student();
-  Student(int id, string name, string level, string major, double gpa, int advisor);
+  Student(int id, string name, string level, string major, double gpa, int advisor); //overloaded
   ~Student();
   //getters and setters
   void setAdvisor(int advisor);
@@ -23,7 +23,7 @@ public:
 
 
 private:
-  int m_ID;
+  int m_ID;  //member varibales 
   string m_name;
   string m_level;
   string m_major;

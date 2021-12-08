@@ -14,9 +14,9 @@ using namespace std;
 
 class Menu{
 public:
-  Menu();
-  ~Menu();
-  void displayOptions();
+  Menu(); //constructor
+  ~Menu(); //destructor
+  void displayOptions(); //needed methods 
   void chooseCommand();
   void beginSimulation();
   Simulation s;

@@ -2,7 +2,7 @@
 #define ROLLBACKDATA_H //header guard
 #include <string>
 #include "Faculty.h"
-#include "Student.h"
+#include "Student.h" //include needed files 
 using namespace std;
 //#include "LinkedList.h" //include needed files
 
@@ -11,10 +11,10 @@ using namespace std;
 class RollbackData{
 public:
   RollbackData(); //initiate methods that will be used
-  RollbackData(int id, Student student, string transaction);
-  RollbackData(int id, Faculty faculty, string transaction);
-  ~RollbackData();
-  string getTransaction();
+  RollbackData(int id, Student student, string transaction); //overloaded
+  RollbackData(int id, Faculty faculty, string transaction); //overloaded
+  ~RollbackData(); //destructor
+  string getTransaction(); //create needed methods
   bool isFaculty();
   Faculty getPerson(string faculty);
   Student getPerson();

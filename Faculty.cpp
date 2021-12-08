@@ -1,8 +1,8 @@
-#include "Faculty.h"
+#include "Faculty.h" //include needed files
 
 using namespace std;
 
-Faculty::Faculty(){
+Faculty::Faculty(){ //constructor
   m_ID = 0;
   m_name = "";
   m_level = "";
@@ -10,7 +10,7 @@ Faculty::Faculty(){
   m_isFaculty = true;
 }
 
-Faculty::Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees){
+Faculty::Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees){ //overloaded
   m_ID = id;
   m_name = name;
   m_level = level;
@@ -19,26 +19,26 @@ Faculty::Faculty(int id, string name, string level, string department, DoublyLin
   //add param and advisee list
 }
 
-Faculty::~Faculty(){
+Faculty::~Faculty(){ //destructor
 
 }
 
-int Faculty::getID(){
+int Faculty::getID(){ //returns ID
   return m_ID;
 }
 
-string Faculty::getName(){
+string Faculty::getName(){ // returns name
   return m_name;
 }
 
-string Faculty::getLevel(){
+string Faculty::getLevel(){ // returns level
   return m_level;
 }
-string Faculty::getDepartment(){
+string Faculty::getDepartment(){ //returns department
   return m_department;
 }
 
-string Faculty::advisees(){
+string Faculty::advisees(){  //returns string of all advisees
   string advs = "";
   ListNode<int>* currNode = m_advisees->getFrontNode();
   while(currNode != NULL){
@@ -55,7 +55,7 @@ string Faculty::advisees(){
   return advs;
 }
 
-void Faculty::print(){
+void Faculty::print(){ //prints whole faculty
   cout << "Faculty ID: " << m_ID << endl;
   cout << "Name: " << m_name << endl;
   cout << "Level: " << m_level << endl;
@@ -70,20 +70,20 @@ void Faculty::print(){
   cout << " " << endl;
 }
 
-DoublyLinkedList<int>* Faculty::getAdvisees(){
+DoublyLinkedList<int>* Faculty::getAdvisees(){ // linked list of advisees
   return m_advisees;
 }
 
-void Faculty::addToAdvisees(int idNum){
+void Faculty::addToAdvisees(int idNum){ //add student id to advisee
   m_advisees->insertBack(idNum);
 }
 
-void Faculty::removeAdvisee(int idNum){
+void Faculty::removeAdvisee(int idNum){ // removes advisee from linked list
   //cout << "works 2.5 \n";
   m_advisees->removeNode(idNum);
 }
 
-bool Faculty::checkForAdvisee(int advisee){
+bool Faculty::checkForAdvisee(int advisee){ //checks linked list for advisee id
   //if advisee is in the list
   if(m_advisees->find(advisee) == -1){
     return false;

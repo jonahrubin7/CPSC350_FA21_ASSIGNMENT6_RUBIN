@@ -8,7 +8,7 @@ Menu::~Menu(){
   //empty destructor
 }
 
-void Menu::displayOptions(){
+void Menu::displayOptions(){ //method to display all options
   string choice;
   cout << "1. Print all students and their information (sorted by ascending id #)" << endl;
   cout << "2. Print all faculty and their information (sorted by ascending id #) " << endl;
@@ -25,11 +25,11 @@ void Menu::displayOptions(){
   cout << "13. Rollback " << endl;
   cout << "14. Exit" << endl;
 
-  chooseCommand();
+  chooseCommand(); // call choose commands
 }
 
 
-void Menu::chooseCommand(){
+void Menu::chooseCommand(){  //method to take in info from user
   cout << "\nPlease select an option from the menu displayed above: ";
   cin >> choice;
 
@@ -101,14 +101,14 @@ void Menu::chooseCommand(){
     cout << "\nWhen you are done viewing this information, enter any input and hit return to go back to the menu.\n" << endl;
     string go = "";
     cin >> go;
-    displayOptions();
+    displayOptions(); //always display options inbetween inputs
   }
 }
 
 
 
 
-void Menu::beginSimulation(){
+void Menu::beginSimulation(){ // method to start simulation create BSTs
   s.CreateInitialBSTs();
   displayOptions();
 }

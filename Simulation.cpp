@@ -1,7 +1,7 @@
-#include "Simulation.h"
+#include "Simulation.h" // include files
 
 
-Simulation::Simulation(){
+Simulation::Simulation(){  //constructor
   masterStudent = new BST<Student>();
   masterFaculty = new BST<Faculty>();
   facultyIDs = new DoublyLinkedList<int>;
@@ -10,7 +10,7 @@ Simulation::Simulation(){
   topFourStack = new GenStack<RollbackData>();
 } //empty constructor
 
-Simulation::~Simulation(){
+Simulation::~Simulation(){ //destructor
   delete adviseeIDs;
   delete facultyIDs;
   delete studentIDs;
@@ -19,7 +19,7 @@ Simulation::~Simulation(){
   delete stack;
 } //empty destructor
 
-void Simulation::CreateInitialBSTs(){
+void Simulation::CreateInitialBSTs(){  //creates bsts
   studentStringID = "";
   studentID = 0;
   name = "";
@@ -99,7 +99,7 @@ void Simulation::CreateInitialBSTs(){
 }
 
 
-int Simulation::stringToInt(string id){
+int Simulation::stringToInt(string id){  //method to turn strings to ints
   int number = 0;
   for(int n = 0; n < id.size(); ++n){
     number *= 10;
@@ -108,7 +108,7 @@ int Simulation::stringToInt(string id){
   return number;
 }
 
-double Simulation::gpaStringToDouble(string gpa){
+double Simulation::gpaStringToDouble(string gpa){  //turns string to double
   //this works for converting GPA
   double returnGPA = 0;
   double currNum = 0;
@@ -135,7 +135,7 @@ double Simulation::gpaStringToDouble(string gpa){
   return returnGPA;
 }
 
-void Simulation::printBSTs(){
+void Simulation::printBSTs(){  //prints Tree
   cout << "master faculty bst\n\n";
   masterFaculty->printNode();
 
@@ -143,7 +143,7 @@ void Simulation::printBSTs(){
   masterStudent->printNode();
 }
 
-Student Simulation::createStudent(string studentStringID, string name, string level, string major, string gpa, string advisor){
+Student Simulation::createStudent(string studentStringID, string name, string level, string major, string gpa, string advisor){ //creates student
   studentID = stringToInt(studentStringID);
   //this checks to see if the ID already exists for a student
   while(studentIDs->find(studentID) != -1){
@@ -165,7 +165,7 @@ Student Simulation::createStudent(string studentStringID, string name, string le
   return newStudent;
 }
 
-Faculty Simulation::createFaculty(string facultyStringID, string name, string level, string department, string advisees, bool added){
+Faculty Simulation::createFaculty(string facultyStringID, string name, string level, string department, string advisees, bool added){  //creates faculty type
   facultyID = stringToInt(facultyStringID);
 
   while(facultyIDs->find(facultyID) != -1){
@@ -214,7 +214,7 @@ void Simulation::printFaculty(){
 }
 
 //3
-void Simulation::printStudent(string studentIDstring){
+void Simulation::printStudent(string studentIDstring){ //prints chosen student
   studentID = stringToInt(studentIDstring);
   if(studentIDs->find(studentID) != -1){
     Student printStudent = masterStudent->find(studentID);
@@ -227,7 +227,7 @@ void Simulation::printStudent(string studentIDstring){
 }
 
 //4
-void Simulation::printFaculty(string facultyIDstring){
+void Simulation::printFaculty(string facultyIDstring){ //prints faculty chosen
   facultyID = stringToInt(facultyIDstring);
   if(facultyIDs->find(facultyID) != -1){
     Faculty printFac = masterFaculty->find(facultyID);
@@ -241,7 +241,7 @@ void Simulation::printFaculty(string facultyIDstring){
 }
 
 //5
-void Simulation::printAdvisor(string studentIDstring){
+void Simulation::printAdvisor(string studentIDstring){ //prints advisor given student id
   studentID = stringToInt(studentIDstring);
   //get the correct student
   if(studentIDs->find(studentID) != -1){
@@ -262,7 +262,7 @@ void Simulation::printAdvisor(string studentIDstring){
 }
 
 //6
-void Simulation::printAdvisees(string facultyIDstring){
+void Simulation::printAdvisees(string facultyIDstring){ //prints list of advisee
   int advisorID = stringToInt(facultyIDstring);
 
   if(facultyIDs->find(advisorID) != -1){
@@ -283,7 +283,7 @@ void Simulation::printAdvisees(string facultyIDstring){
 }
 
 //7
-void Simulation::addStudent(){
+void Simulation::addStudent(){ // adds new student
 
   //get user input for all of the needed student info
   cout << "Please enter the following information for the student you would like to add: " << endl;
@@ -334,7 +334,7 @@ void Simulation::addStudent(){
 }
 
 //8
-void Simulation::deleteStudent(string id, bool rollback){
+void Simulation::deleteStudent(string id, bool rollback){ //deletes chosen student
   int intID = stringToInt(id);
   if(studentIDs->find(intID) != -1){
     Student deleteS = masterStudent->find(intID);
@@ -359,7 +359,7 @@ void Simulation::deleteStudent(string id, bool rollback){
 }
 
 //9
-void Simulation::addFaculty(){
+void Simulation::addFaculty(){ //adds faculty
   //gets user input for a new faculty member
   cout << "Please enter the following information for the faculty member you would like to add: " << endl;
   cout << "ID: ";
@@ -414,7 +414,7 @@ void Simulation::addFaculty(){
 }
 
 //10
-void Simulation::deleteFaculty(string id, bool rollback){
+void Simulation::deleteFaculty(string id, bool rollback){ //deletes Faculty
 
   int intID = stringToInt(id);
   if(facultyIDs->find(intID) != -1){
@@ -449,7 +449,7 @@ void Simulation::deleteFaculty(string id, bool rollback){
 }
 
 //11
-void Simulation::changeAdvisor(string studentID, string newAdvisor, bool newA){
+void Simulation::changeAdvisor(string studentID, string newAdvisor, bool newA){  //changes advisor for student
     int sID = stringToInt(studentID);
     int aID = stringToInt(newAdvisor);
     if(studentIDs->find(sID) == -1){
@@ -477,7 +477,7 @@ void Simulation::changeAdvisor(string studentID, string newAdvisor, bool newA){
 }
 
 //12
-void Simulation::removeAdvisee(string advisor, string advisee){
+void Simulation::removeAdvisee(string advisor, string advisee){ //removes advisee from list
   int aID = stringToInt(advisor);
   int sID = stringToInt(advisee);
   if(masterFaculty->contains(aID)){
@@ -504,7 +504,7 @@ void Simulation::removeAdvisee(string advisor, string advisee){
 
 
 
-void Simulation::rollback(){
+void Simulation::rollback(){  //calls rollback
   if(stack->getSize() == 5){
     for(int i = 0; i < 4; ++i){
       topFourStack->push(stack->pop());
@@ -608,13 +608,13 @@ string Simulation::treeToStringFaculty(TreeNode<Faculty>* root){
 
 void Simulation::exitSim(){
   ofstream outFS;
-  outFS.open("studentTable2");
+  outFS.open("studentTable");
   TreeNode<Student>* rootStudent = masterStudent->getRoot();
   outFS << treeToStringStudent(rootStudent);
   outFS << "END OF FILE";
   outFS.close();
 
-  outFS.open("facultyTable2");
+  outFS.open("facultyTable");
   TreeNode<Faculty>*rootFaculty = masterFaculty->getRoot();
   outFS << treeToStringFaculty(rootFaculty);
   outFS << "END OF FILE";

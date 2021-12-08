@@ -4,15 +4,15 @@
 using namespace std;
 
 
-#include "Person.h" //include needed files 
+#include "Person.h" //include needed files
 #include "LinkedList.h"
 
 class Faculty : public Person{ //inherits person.
 public: //create methods that will be used
-  Faculty();
-  Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees);
-  ~Faculty();
-  int getID();
+  Faculty(); //constructor
+  Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees); //overloaded
+  ~Faculty();// destructor
+  int getID(); //needed methods 
   string getName();
   string getLevel();
   string getDepartment();
