@@ -7,17 +7,17 @@ using namespace std;
 template <class T>
 class TreeNode{
 public:
-  TreeNode();
-  TreeNode(int key, T value);
+  TreeNode(); //constructor
+  TreeNode(int key, T value); // overloaded tree node
   virtual ~TreeNode(); // abstract class
   int key;
   T value;
-  TreeNode<T> *left;
+  TreeNode<T> *left; //create pointers for left and right
   TreeNode<T> *right;
 };
 
 template <class T>
-TreeNode<T>::TreeNode(){
+TreeNode<T>::TreeNode(){ //create tree node
   left = NULL;
   right = NULL;
   key = 0;
@@ -25,7 +25,7 @@ TreeNode<T>::TreeNode(){
 }
 
 template <class T>
-TreeNode<T>::TreeNode(int k, T v){
+TreeNode<T>::TreeNode(int k, T v){ //overloaded
   left = NULL;
   right = NULL;
   key = k;
@@ -40,11 +40,11 @@ TreeNode<T>::~TreeNode(){
 
 
 template <class T>
-class BST{
+class BST{  //create bst class
 public:
   BST();
   virtual ~BST();
-  void insert(int key, T value);
+  void insert(int key, T value); //create method that will be used
   bool contains(int key);
   T find(int key);
   bool deleteNode(int k);
@@ -57,32 +57,30 @@ public:
   void recPrint(TreeNode<T> *node);
   TreeNode<T> *getRoot();
 private:
-  TreeNode<T> *root;
+  TreeNode<T> *root; //root node
 };
 
 
 template <class T>
-BST<T>::BST(){
+BST<T>::BST(){ //constructor
   root = NULL;
 }
 
 template <class T>
-BST<T>::~BST(){
+BST<T>::~BST(){ //destructor
   //do some research
 }
 
 template <class T>
-void BST<T>::recPrint(TreeNode<T> *node){
+void BST<T>::recPrint(TreeNode<T> *node){ //method to print the tree
     if(node == NULL){
       return;
     }
-  //cout << node->key << endl;
   recPrint(node->left);
   //prints all of the info for every type person in ascending order
   T studentOrFaculty = node->value;
   cout << endl;
   studentOrFaculty.print();
-  //cout << node->key << endl;
   recPrint(node->right);
 }
 
@@ -93,12 +91,12 @@ void BST<T>::printNode(){
 }
 
 template <class T>
-bool BST<T>::isEmpty(){
+bool BST<T>::isEmpty(){ //check if node is empty
   return (root == NULL);
 }
 
 template <class T>
-T* BST<T>::getMin(){
+T* BST<T>::getMin(){ //gets the smallest node
   if(isEmpty()){
     return NULL;
   }
@@ -106,11 +104,11 @@ T* BST<T>::getMin(){
   while(current->left != NULL){
     current = current->left;
   }
-  return &(current->key); //wtf is the & doin
+  return &(current->key);
 }
 
 template <class T>
-T* BST<T>::getMax(){
+T* BST<T>::getMax(){ //gets the biggest node
   if(isEmpty()){
     return NULL;
   }
@@ -118,13 +116,13 @@ T* BST<T>::getMax(){
   while(current->right != NULL){
     current = current->right;
   }
-  return &(current->key); //wtf is the & doin
+  return &(current->key);
 }
 
 
 
 template <class T>
-void BST<T>::insert(int key, T value){
+void BST<T>::insert(int key, T value){ //inserts node into tree
   TreeNode<T> *node = new TreeNode<T>(key, value);
   if(isEmpty()){
     root = node;
@@ -154,7 +152,7 @@ void BST<T>::insert(int key, T value){
 }
 
 template <class T>
-bool BST<T>::contains(int key){
+bool BST<T>::contains(int key){ //checks if key is in tree
   if(isEmpty()){
     return false;
   }
@@ -176,7 +174,7 @@ bool BST<T>::contains(int key){
 
 
 template <class T>
-bool BST<T>::deleteNode(int k){
+bool BST<T>::deleteNode(int k){ //deletes node from tree
   if(isEmpty()){
     return false;
   }
@@ -262,7 +260,7 @@ bool BST<T>::deleteNode(int k){
 }
 
 template<class T>
-TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d){
+TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d){ //method that returns successor to a deleted node
   TreeNode<T> *sp = d;
   TreeNode<T> *successor = d;
   TreeNode<T> *current = d->right;
@@ -282,11 +280,7 @@ TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d){
 
 
 template <class T>
-T BST<T>::find(int key){
-  // if(isEmpty()){
-  //   return ;
-  // }
-  //not sure what to return if empty
+T BST<T>::find(int key){ // returns specified node
 
   TreeNode<T> *current = root;
 
@@ -303,16 +297,9 @@ T BST<T>::find(int key){
   return current->value;
 }
 
-// Calcsum(TreeNode<T> *node){
-//   if(node == NULL){
-//     return 0;
-//   }
-  //return node->key + //more?
-// }
-//
-//
+
 template <class T>
-TreeNode<T>* BST<T>::getRoot(){
+TreeNode<T>* BST<T>::getRoot(){ //returns root node
   return root;
 }
 

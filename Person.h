@@ -2,13 +2,13 @@
 #define PERSON_H //header guard
 #include <string>
 using namespace std;
-#include "LinkedList.h"
+#include "LinkedList.h" //include needed files 
 
 
 //abstract person class
 class Person{
 public:
-  Person();
+  Person(); //initiate methods that will be used
   Person(int id, string name, string level);
   ~Person();
   //getters and setters
@@ -20,15 +20,13 @@ public:
   bool isFaculty();
 
 
-private:
-  //maybe need to make these public? not sure yet
+private: //member variables
   int m_ID;
   string m_name;
   string m_level;
   string m_call;
   bool m_isFaculty;
 
-  //compare (greater than or less than) ???
 };
 
 #endif
