@@ -2,7 +2,7 @@
 #define PERSON_H //header guard
 #include <string>
 using namespace std;
-#include "LinkedList.h"
+#include "LinkedList.h" //include needed files 
 
 
 //abstract person class
@@ -20,7 +20,7 @@ public:
   bool isFaculty();
 
 
-private: //member variables 
+private: //member variables
   int m_ID;
   string m_name;
   string m_level;

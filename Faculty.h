@@ -4,11 +4,11 @@
 using namespace std;
 
 
-#include "Person.h"
+#include "Person.h" //include needed files 
 #include "LinkedList.h"
 
-class Faculty : public Person{
-public:
+class Faculty : public Person{ //inherits person.
+public: //create methods that will be used
   Faculty();
   Faculty(int id, string name, string level, string department, DoublyLinkedList<int> *advisees);
   ~Faculty();
@@ -17,7 +17,7 @@ public:
   string getLevel();
   string getDepartment();
   string advisees();
-  DoublyLinkedList<int>* getAdvisees();
+  DoublyLinkedList<int>* getAdvisees(); //create linked list of advisees
   void print();
   void addToAdvisees(int idNum);
   void removeAdvisee(int idNum);
@@ -25,14 +25,12 @@ public:
 
 
 
-private:
+private: //create member variables
   int m_ID;
   string m_name;
   string m_level;
   string m_department;
   DoublyLinkedList<int> *m_advisees = new DoublyLinkedList<int>();
   bool m_isFaculty;
-  //idk
-  //overloaded operators??
 };
 #endif
