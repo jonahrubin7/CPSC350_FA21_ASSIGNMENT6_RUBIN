@@ -6,8 +6,8 @@ Simulation::Simulation(){
   masterFaculty = new BST<Faculty>();
   facultyIDs = new DoublyLinkedList<int>;
   studentIDs = new DoublyLinkedList<int>;
-  stack = new GenStack<Person>();
-  topFourStack = new GenStack<Person>();
+  stack = new GenStack<RollbackData>();
+  topFourStack = new GenStack<RollbackData>();
 } //empty constructor
 
 Simulation::~Simulation(){
@@ -314,8 +314,8 @@ void Simulation::addStudent(){
   //student is created
   Student student = createStudent(studentStringID, name, level, major, gpa, advisor);
 
-  student.setCall("Delete");
-  stack->push(student);
+  RollbackData d = RollbackData(id, student, "Delete");
+  stack->push(d);
 
   //student inserted into the bst
   int id = student.getID();
@@ -339,8 +339,8 @@ void Simulation::deleteStudent(string id, bool rollback){
   if(studentIDs->find(intID) != -1){
     Student deleteS = masterStudent->find(intID);
     if(rollback == false){
-      deleteS.setCall("Insert");
-      stack->push(deleteS);
+      RollbackData d = RollbackData(intID, deleteS, "Insert");
+      stack->push(d);
     }
     int advisorID = deleteS.getAdvisor();
     //student is deleted from bst
@@ -407,8 +407,9 @@ void Simulation::addFaculty(){
     f.removeAdvisee(currentRemoval);
   }
 
-  f.setCall("Delete");
-  stack->push(f);
+  //f.setCall("Delete");
+  RollbackData d = RollbackData(id, f, "Delete");
+  stack->push(d);
 
 }
 
@@ -419,8 +420,8 @@ void Simulation::deleteFaculty(string id, bool rollback){
   if(facultyIDs->find(intID) != -1){
     Faculty deleteF = masterFaculty->find(intID);
     if(rollback == false){
-      deleteF.setCall("Insert");
-      stack->push(deleteF);
+      RollbackData d = RollbackData(intID, deleteF, "Insert");
+      stack->push(d);
     }
     adviseeIDs = deleteF.getAdvisees();
     //linked list of id nmbers, deleted faculty is removed
@@ -509,12 +510,15 @@ void Simulation::rollback(){
 
 
   if(stack->getSize() > 0){
-    Person p = stack->pop();
-
+    cout << "Gets here " << endl;
+    RollbackData roll = stack->pop();
+    int id = roll.getID();
+    cout << "trans" << roll.getTransaction() << endl;
     //id = p.getID();
-    if(p.getCall() == "Insert"){
-      if(p.isFaculty() == true){
-        Faculty &f = static_cast<Faculty&>(p);
+    if(roll.getTransaction() == "Insert"){
+      cout << "Gets here " << endl;
+      if(roll.isFaculty() == true){
+        Faculty f = roll.getPerson("faculty");
 
         id = f.getID();
 
@@ -531,7 +535,7 @@ void Simulation::rollback(){
 
         masterFaculty->insert(id, f);
       }else{
-        Student &s = static_cast<Student&>(p);
+        Student s = roll.getPerson();
 
         id = s.getID();
         cout << "this is the id of the student being inserted " << id << endl;
@@ -542,10 +546,11 @@ void Simulation::rollback(){
         masterStudent->insert(id, s);
       }
     }
-    else if(p.getCall() == "Delete"){
+    else if(roll.getTransaction() == "Delete"){
+      cout << "Gets here " << endl;
       string i;
-      if(p.isFaculty() == true){
-        Faculty &f = static_cast<Faculty&>(p);
+      if(roll.isFaculty() == true){
+        Faculty f = roll.getPerson("faculty");
         id = f.getID();
 
         i = to_string(id);
@@ -553,7 +558,7 @@ void Simulation::rollback(){
 
         deleteFaculty(i, true);
       }else{
-        Student &s = static_cast<Student&>(p);
+        Student s = roll.getPerson();
 
         id = s.getID();
         i = to_string(id);

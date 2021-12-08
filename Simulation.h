@@ -13,6 +13,7 @@ using namespace std;
 #include "Student.h"
 #include "Faculty.h"
 #include "GenStack.h"
+#include "RollbackData.h"
 
 
 //using namespace std;
@@ -89,8 +90,8 @@ class Simulation{
     BST<Student>* masterStudent;
     BST<Faculty>* masterFaculty;
 
-    GenStack<Person> *stack;
-    GenStack<Person> *topFourStack;
+    GenStack<RollbackData> *stack;
+    GenStack<RollbackData> *topFourStack;
     //Menu m;
 };
 #endif
