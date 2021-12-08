@@ -435,8 +435,9 @@ void Simulation::deleteFaculty(string id, bool rollback){
       Faculty newAdvisor = masterFaculty->find(randomAdvisorID);
       newAdvisor.addToAdvisees(currentStudent);
       Student reassignedStudent = masterStudent->find(currentStudent);
+      masterStudent->deleteNode(currentStudent);
       reassignedStudent.setAdvisor(randomAdvisorID);
-
+      masterStudent->insert(currentStudent, reassignedStudent);
     }
     masterFaculty->deleteNode(intID);
 
@@ -504,10 +505,14 @@ void Simulation::removeAdvisee(string advisor, string advisee){
 
 
 void Simulation::rollback(){
-  //if(stack->getSize() == 5){
-
-  //}
-
+  if(stack->getSize() == 5){
+    for(int i = 0; i < 4; ++i){
+      topFourStack->push(stack->pop());
+    }
+    for(int a = 0; a < 4; ++a){
+      stack->push(topFourStack->pop());
+    }
+  }
 
   if(stack->getSize() > 0){
     cout << "Gets here " << endl;
@@ -534,6 +539,7 @@ void Simulation::rollback(){
         }
 
         masterFaculty->insert(id, f);
+        facultyIDs->insertBack(id);
       }else{
         Student s = roll.getPerson();
 
@@ -544,6 +550,7 @@ void Simulation::rollback(){
         faculty.addToAdvisees(s.getID());
 
         masterStudent->insert(id, s);
+        studentIDs->insertBack(id);
       }
     }
     else if(roll.getTransaction() == "Delete"){
